@@ -20,7 +20,7 @@
 - [x] Create Platform entity
 - [x] Create Game entity
 - [ ] Create repository interfaces
-- [~] Create Mongoose models
+- [x] Create Mongoose models
 - [ ] Implement initial repositories
 - [ ] Add seed script
 - [ ] Add database-clear script

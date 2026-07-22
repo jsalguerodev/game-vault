@@ -1,8 +1,8 @@
 export type PlatformType =
   'console'
   | 'handheld'
-  | 'PC'
-  | 'PC storefront'
+  | 'pc'
+  | 'pc-storefront'
   | 'other'
 
 export interface PlatFormEntityOptions {
