@@ -15,12 +15,12 @@
 - [ ] Configure ESLint
 - [ ] Configure Prettier
 - [x] Add `.env.template`
-- [ ] Add Docker Compose
-- [ ] Connect to MongoDB
-- [ ] Create Platform entity
-- [ ] Create Game entity
+- [x] Add Docker Compose
+- [x] Connect to MongoDB
+- [x] Create Platform entity
+- [x] Create Game entity
 - [ ] Create repository interfaces
-- [ ] Create Mongoose models
+- [~] Create Mongoose models
 - [ ] Implement initial repositories
 - [ ] Add seed script
 - [ ] Add database-clear script
