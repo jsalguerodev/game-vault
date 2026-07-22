@@ -1,5 +1,7 @@
 /node_modules/
 /dist/
 /documentation/
+/mongo-data/
 
 .env
+time-tracker.json
