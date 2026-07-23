@@ -19,6 +19,11 @@ const gameSchema = new mongoose.Schema({
     required: true
   },
 
+  id: {
+    type: String,
+    default: ""
+  },
+
   releaseYear: {
     type: Number,
     default: null,

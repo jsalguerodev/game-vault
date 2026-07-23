@@ -7,6 +7,7 @@ export type PlatformType =
 
 export interface PlatFormEntityOptions {
   name: string
+  id?: string
   manufacturer?: string
   type?: PlatformType
   releaseYear?: number | null
@@ -16,6 +17,7 @@ export interface PlatFormEntityOptions {
 
 export class PlatformEntity {
   public name: string
+  public id: string
   public manufacturer: string
   public type: PlatformType
   public releaseYear: number | null
@@ -23,7 +25,7 @@ export class PlatformEntity {
   private _updatedAt: Date
 
   constructor ( options: PlatFormEntityOptions ) {
-    const { name, manufacturer, type, releaseYear, createdAt, updatedAt } = options
+    const { name, id, manufacturer, type, releaseYear, createdAt, updatedAt } = options
 
     if ( !name.trim() ){
       throw new Error ('Platform name is required')
@@ -34,6 +36,7 @@ export class PlatformEntity {
     }
 
     this.name = name.trim()
+    this.id = id ?? ""
     this.manufacturer = manufacturer ?? ""
     this.type = type ?? "other"
     this.releaseYear = releaseYear ?? null

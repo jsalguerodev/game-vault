@@ -8,6 +8,11 @@ const platformSchema = new mongoose.Schema({
     unique: true
   },
 
+  id: {
+    type: String,
+    default: ""
+  },
+
   manufacturer: {
     type: String,
     trim: true,

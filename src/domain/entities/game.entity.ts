@@ -4,6 +4,7 @@ export interface GameEntityOptions {
   title: string
   platformId: string
   format: GameFormat
+  id?:string
   releaseYear?: number | null
   edition?: string
   genres?: string[]
@@ -17,6 +18,7 @@ export class GameEntity {
   public title: string
   public platformId: string
   public format: GameFormat
+  public id: string
   public edition: string
   public genres: string[]
   public releaseYear: number | null
@@ -25,7 +27,7 @@ export class GameEntity {
   private _updatedAt: Date
 
   constructor ( options: GameEntityOptions ) {
-    const { title, platformId, format, edition, genres, releaseYear, notes, createdAt, updatedAt} = options
+    const { title, platformId, format, id, edition, genres, releaseYear, notes, createdAt, updatedAt} = options
 
     if( !title.trim() ) {
       throw new Error ('Game title is required')
@@ -42,6 +44,7 @@ export class GameEntity {
     this.title = title.trim()
     this.platformId = platformId
     this.format = format
+    this.id = id ?? ""
     this.edition = edition ?? 'standard'
     this.genres = genres ? [...genres] : []
     this.releaseYear = releaseYear ?? null
