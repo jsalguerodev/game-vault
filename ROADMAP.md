@@ -19,11 +19,11 @@
 - [x] Connect to MongoDB
 - [x] Create Platform entity
 - [x] Create Game entity
-- [ ] Create repository interfaces
+- [x] Create repository interfaces
 - [x] Create Mongoose models
-- [ ] Implement initial repositories
-- [ ] Add seed script
-- [ ] Add database-clear script
+- [x] Implement initial repositories
+- [x] Add seed script
+- [x] Add database-clear script
 
 ## Milestone 2: Collection Management
 

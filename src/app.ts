@@ -1,5 +1,7 @@
 import { MongoDatabase} from './infrastructure/database/mongodb/connection.js'
 import { envs } from './config/plugins/index.js'
+import { PlatformModel } from './infrastructure/database/mongodb/models/index.js'
+
 
 async function main(): Promise<void> {
   try {
