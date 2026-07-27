@@ -5,12 +5,12 @@ interface ClearDatabaseDataResult {
   deletedPlatforms: number
 }
 
-export const clearDatabaseData = async(): Promise<ClearDatabaseDataResult> => {
+export const clearDatabaseData = async (): Promise<ClearDatabaseDataResult> => {
   const clearGames = await GameModel.deleteMany({})
   const clearPlatforms = await PlatformModel.deleteMany({})
 
   return {
     deletedGames: clearGames.deletedCount,
-    deletedPlatforms: clearPlatforms.deletedCount
+    deletedPlatforms: clearPlatforms.deletedCount,
   }
 }

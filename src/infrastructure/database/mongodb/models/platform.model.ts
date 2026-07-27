@@ -1,38 +1,39 @@
-import mongoose from "mongoose"
+import mongoose from 'mongoose'
 
-const platformSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    trim: true,
-    required: true,
-    unique: true
-  },
+const platformSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      trim: true,
+      required: true,
+      unique: true,
+    },
 
-  manufacturer: {
-    type: String,
-    trim: true,
-    default: ""
-  },
+    manufacturer: {
+      type: String,
+      trim: true,
+      default: '',
+    },
 
-  type: {
-    type: String,
-    enum: ['console','handheld','pc','pc-storefront','other'],
-    default: 'other'
-  },
+    type: {
+      type: String,
+      enum: ['console', 'handheld', 'pc', 'pc-storefront', 'other'],
+      default: 'other',
+    },
 
-  releaseYear: {
-    type: Number,
-    default: null,
-    min: 1,
-    validate:{
-      validator: (value: number | null): boolean => {
-        return value === null || Number.isInteger(value)
+    releaseYear: {
+      type: Number,
+      default: null,
+      min: 1,
+      validate: {
+        validator: (value: number | null): boolean => {
+          return value === null || Number.isInteger(value)
+        },
+        message: 'Release year must be an integer',
       },
-      message: 'Release year must be an integer'
-    }
-  }
-},
-  { timestamps: true, }
+    },
+  },
+  { timestamps: true },
 )
 
-export const PlatformModel = mongoose.model( 'Platform', platformSchema )
+export const PlatformModel = mongoose.model('Platform', platformSchema)

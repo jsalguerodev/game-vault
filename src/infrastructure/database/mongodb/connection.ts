@@ -1,5 +1,5 @@
-import mongoose from "mongoose"
-import { envs } from "../../../config/plugins/index.js"
+import mongoose from 'mongoose'
+import { envs } from '../../../config/plugins/index.js'
 
 interface ConnectionOptions {
   readonly mongodbUrl: string

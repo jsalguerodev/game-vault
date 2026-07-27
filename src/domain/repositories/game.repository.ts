@@ -11,8 +11,8 @@ export interface UpdateGameData {
 }
 
 export interface GameRepository {
-  create (game: GameEntity): Promise<GameEntity>
-  update (id: string, data: UpdateGameData): Promise<GameEntity>
-  delete (id: string): Promise<void>
-  findAll (): Promise<GameEntity[]>
+  create(game: GameEntity): Promise<GameEntity>
+  update(id: string, data: UpdateGameData): Promise<GameEntity>
+  delete(id: string): Promise<void>
+  findAll(): Promise<GameEntity[]>
 }
