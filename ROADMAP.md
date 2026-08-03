@@ -12,8 +12,8 @@
 
 - [x] Initialize Node.js project
 - [x] Configure TypeScript
-- [ ] Configure ESLint
-- [ ] Configure Prettier
+- [x] Configure ESLint
+- ~~[ ] Configure Prettier~~
 - [x] Add `.env.template`
 - [x] Add Docker Compose
 - [x] Connect to MongoDB
@@ -27,9 +27,9 @@
 
 ## Milestone 2: Collection Management
 
-- [ ] Add platform
-- [ ] List platforms
-- [ ] Update platform
+- [x] Add platform
+- [x] List platforms
+- [x] Update platform
 - [ ] Add game
 - [ ] List games
 - [ ] Search games

@@ -1,5 +1,5 @@
 import { MongoDatabase } from '../connection.js'
-import { envs } from '../../../../config/plugins/index.js'
+import { envs, normalize } from '../../../../config/plugins/index.js'
 import { clearDatabaseData } from './clear-database-data.script.js'
 import { GameModel, PlatformModel } from '../models/index.js'
 import { platformSeedData, gameSeedData } from './data/seed.data.js'
@@ -20,7 +20,13 @@ const runSeed = async (): Promise<void> => {
 
     await clearDatabaseData()
 
-    const platforms = await PlatformModel.insertMany(platformSeedData)
+    const data = platformSeedData.map((platform) => ({
+      ...platform,
+      normalizedName: normalize(platform.name),
+      normalizedManufacturer: normalize(platform.manufacturer),
+    }))
+
+    const platforms = await PlatformModel.insertMany(data)
 
     const platformsMap = new Map(
       platforms.map((platform) => [platform.name, platform._id]),
