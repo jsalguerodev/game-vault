@@ -4,6 +4,8 @@ export interface UpdateGameData {
   title?: string
   platformId?: string
   format?: GameFormat
+  developer?: string
+  publisher?: string
   releaseYear?: number | null
   edition?: string
   genres?: string[]

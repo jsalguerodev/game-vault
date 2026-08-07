@@ -12,7 +12,7 @@ import type {
   UpdatePlatformData,
   PlatformFilters,
 } from '../../domain/repositories/index.js'
-import type { PlatformPersistence } from '../database/mongodb/models/platform.model.js'
+import type { PlatformPersistence } from '../database/mongodb/models/index.js'
 
 const validatePlatformId = (id: string) => {
   if (!isValidID(id)) {
@@ -24,7 +24,7 @@ export class MongoPlatformRepository implements PlatformRepository {
   constructor(private readonly platformModel: Model<PlatformPersistence>) {}
 
   async create(platform: PlatformEntity): Promise<PlatformEntity> {
-    const platformDocument = await this.platformModel.create({
+    const newPlatform = await this.platformModel.create({
       name: platform.name,
       normalizedName: normalize(platform.name),
       manufacturer: platform.manufacturer,
@@ -33,59 +33,49 @@ export class MongoPlatformRepository implements PlatformRepository {
       releaseYear: platform.releaseYear,
     })
 
-    return new PlatformEntity({
-      id: platformDocument._id.toString(),
-      name: platformDocument.name,
-      manufacturer: platformDocument.manufacturer,
-      type: platformDocument.type,
-      releaseYear: platformDocument.releaseYear,
-      createdAt: platformDocument.createdAt,
-      updatedAt: platformDocument.updatedAt,
-    })
+    return PlatformEntity.fromMongoObject(newPlatform)
   }
 
   async update(id: string, data: UpdatePlatformData): Promise<PlatformEntity> {
     validatePlatformId(id)
 
-    const editingDocument = await this.platformModel.findById(id)
+    const editingPlatform = await this.platformModel.findById(id)
 
-    if (!editingDocument) {
+    if (!editingPlatform) {
       throw new Error('Platform not found')
     }
 
     const { name, manufacturer, releaseYear, type } = data
 
     if (name !== undefined) {
-      editingDocument.name = name
-      editingDocument.normalizedName = normalize(name)
+      editingPlatform.name = name
+      editingPlatform.normalizedName = normalize(name)
     }
 
     if (manufacturer !== undefined) {
-      editingDocument.manufacturer = manufacturer
-      editingDocument.normalizedManufacturer = normalize(manufacturer)
+      editingPlatform.manufacturer = manufacturer
+      editingPlatform.normalizedManufacturer = normalize(manufacturer)
     }
 
-    if (releaseYear !== undefined) editingDocument.releaseYear = releaseYear
-    if (type !== undefined) editingDocument.type = type
+    if (releaseYear !== undefined) editingPlatform.releaseYear = releaseYear
+    if (type !== undefined) editingPlatform.type = type
 
-    await editingDocument.save()
+    await editingPlatform.save()
 
-    return new PlatformEntity({
-      id: editingDocument._id.toString(),
-      name: editingDocument.name,
-      manufacturer: editingDocument.manufacturer,
-      type: editingDocument.type,
-      releaseYear: editingDocument.releaseYear,
-      createdAt: editingDocument.createdAt,
-      updatedAt: editingDocument.updatedAt,
-    })
+    return PlatformEntity.fromMongoObject(editingPlatform)
   }
 
   delete(id: string): Promise<void> {
     throw new Error('Method not implemented.')
   }
 
-  async findAll(filters: PlatformFilters = {}): Promise<PlatformEntity[]> {
+  async findAll(): Promise<PlatformEntity[]> {
+    const platforms = await this.platformModel.find()
+
+    return platforms.map((platform) => PlatformEntity.fromMongoObject(platform))
+  }
+
+  async filter(filters: PlatformFilters = {}): Promise<PlatformEntity[]> {
     const query = this.platformModel.find()
 
     if (filters.id !== undefined) {
@@ -96,70 +86,38 @@ export class MongoPlatformRepository implements PlatformRepository {
       query.where('name').equals(filters.name)
     }
 
+    if (filters.normalizedName !== undefined) {
+      query.where('normalizedName').equals(filters.normalizedName)
+    }
+
     if (filters.manufacturer !== undefined) {
       query.where('manufacturer').equals(filters.manufacturer)
+    }
+
+    if (filters.normalizedManufacturer !== undefined) {
+      query
+        .where('normalizedManufacturer')
+        .equals(filters.normalizedManufacturer)
     }
 
     if (filters.type !== undefined) {
       query.where('type').equals(filters.type)
     }
 
-    const platformsDocuments = await query.exec()
+    const platforms = await query.exec()
 
-    return platformsDocuments.map(
-      (platform) =>
-        new PlatformEntity({
-          id: platform._id.toString(),
-          name: platform.name,
-          manufacturer: platform.manufacturer,
-          type: platform.type,
-          releaseYear: platform.releaseYear,
-          createdAt: platform.createdAt,
-          updatedAt: platform.updatedAt,
-        }),
-    )
+    return platforms.map((platform) => PlatformEntity.fromMongoObject(platform))
   }
 
   async findById(id: string): Promise<PlatformEntity> {
     validatePlatformId(id)
 
-    const platformDocument = await this.platformModel.findById(id)
+    const platform = await this.platformModel.findById(id)
 
-    if (!platformDocument) {
+    if (!platform) {
       throw new PlatformNotFoundError(id)
     }
 
-    return new PlatformEntity({
-      id: platformDocument._id.toString(),
-      name: platformDocument.name,
-      manufacturer: platformDocument.manufacturer,
-      type: platformDocument.type,
-      releaseYear: platformDocument.releaseYear,
-      createdAt: platformDocument.createdAt,
-      updatedAt: platformDocument.updatedAt,
-    })
-  }
-
-  async findByNameAndManufacturer(
-    name: string,
-    manufacturer: string,
-  ): Promise<PlatformEntity[]> {
-    const platformsDocuments = await this.platformModel.find({
-      normalizedName: normalize(name),
-      normalizedManufacturer: normalize(manufacturer),
-    })
-
-    return platformsDocuments.map(
-      (platform) =>
-        new PlatformEntity({
-          id: platform._id.toString(),
-          name: platform.name,
-          manufacturer: platform.manufacturer,
-          type: platform.type,
-          releaseYear: platform.releaseYear,
-          createdAt: platform.createdAt,
-          updatedAt: platform.updatedAt,
-        }),
-    )
+    return PlatformEntity.fromMongoObject(platform)
   }
 }

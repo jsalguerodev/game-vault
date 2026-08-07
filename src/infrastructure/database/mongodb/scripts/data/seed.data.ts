@@ -51,12 +51,15 @@ export const gameSeedData = [
     format: 'physical',
     releaseYear: 2017,
     genres: ['Action', 'Adventure'],
+    developer: 'Nintendo EPD',
+    publisher: 'Nintendo',
   },
   {
     title: 'Super Mario Odyssey',
     platformName: 'Switch',
     format: 'physical',
     releaseYear: 2017,
+    developer: 'Nintendo EPD',
   },
   {
     title: 'Animal Crossing: New Horizons',
@@ -64,6 +67,7 @@ export const gameSeedData = [
     format: 'digital',
     genres: ['Simulation'],
     notes: 'Purchased from the Nintendo eShop',
+    publisher: 'Nintendo',
   },
 
   // Nintendo Switch 2
@@ -73,12 +77,15 @@ export const gameSeedData = [
     format: 'physical',
     releaseYear: 2025,
     genres: ['Racing'],
+    developer: 'Nintendo EPD',
+    publisher: 'Nintendo',
   },
   {
     title: 'Donkey Kong Bananza',
     platformName: 'Switch 2',
     format: 'digital',
     releaseYear: 2025,
+    developer: 'Nintendo EPD',
   },
   {
     title: 'Kirby Air Riders',
@@ -86,6 +93,7 @@ export const gameSeedData = [
     format: 'physical',
     edition: 'Standard Edition',
     notes: 'Includes original case',
+    publisher: 'Nintendo',
   },
 
   // PlayStation 4
@@ -95,6 +103,8 @@ export const gameSeedData = [
     format: 'physical',
     releaseYear: 2015,
     genres: ['Action RPG'],
+    developer: 'FromSoftware',
+    publisher: 'Sony Computer Entertainment',
   },
   {
     title: 'God of War',
@@ -102,12 +112,14 @@ export const gameSeedData = [
     format: 'digital',
     releaseYear: 2018,
     edition: 'Digital Deluxe Edition',
+    developer: 'Santa Monica Studio',
   },
   {
     title: 'The Last of Us Part II',
     platformName: 'Playstation 4',
     format: 'physical',
     notes: 'Pre-owned copy',
+    publisher: 'Sony Interactive Entertainment',
   },
 
   // PlayStation 5
@@ -117,6 +129,8 @@ export const gameSeedData = [
     format: 'physical',
     releaseYear: 2020,
     genres: ['Action RPG'],
+    developer: 'Bluepoint Games',
+    publisher: 'Sony Interactive Entertainment',
   },
   {
     title: 'Ratchet & Clank: Rift Apart',
@@ -131,6 +145,8 @@ export const gameSeedData = [
     edition: 'Deluxe Edition',
     genres: ['RPG', 'Action'],
     notes: 'Steelbook included',
+    developer: 'Square Enix',
+    publisher: 'Square Enix',
   },
 
   // Xbox One
@@ -140,18 +156,22 @@ export const gameSeedData = [
     format: 'digital',
     releaseYear: 2014,
     genres: ['Action', 'Adventure'],
+    developer: 'Insomniac Games',
   },
   {
     title: 'Quantum Break',
     platformName: 'Xbox One',
     format: 'physical',
     releaseYear: 2016,
+    publisher: 'Microsoft Studios',
   },
   {
     title: 'Ryse: Son of Rome',
     platformName: 'Xbox One',
     format: 'physical',
     notes: 'Day One Edition',
+    developer: 'Crytek',
+    publisher: 'Microsoft Studios',
   },
 
   // Xbox Series
@@ -161,19 +181,23 @@ export const gameSeedData = [
     format: 'digital',
     releaseYear: 2023,
     genres: ['RPG', 'Science Fiction'],
+    developer: 'Bethesda Game Studios',
+    publisher: 'Bethesda Softworks',
   },
   {
     title: 'Forza Motorsport',
     platformName: 'Xbox Series',
     format: 'physical',
     releaseYear: 2023,
+    developer: 'Turn 10 Studios',
   },
   {
-    title: 'Senua\’s Saga: Hellblade II',
+    title: 'Senua’s Saga: Hellblade II',
     platformName: 'Xbox Series',
     format: 'digital',
     genres: ['Action', 'Adventure'],
     notes: 'Installed through Game Pass',
+    publisher: 'Xbox Game Studios',
   },
 
   // Steam
@@ -183,18 +207,23 @@ export const gameSeedData = [
     format: 'digital',
     releaseYear: 2020,
     genres: ['VR', 'Action'],
+    developer: 'Valve',
+    publisher: 'Valve',
   },
   {
-    title: 'Baldur\’s Gate 3',
+    title: 'Baldur’s Gate 3',
     platformName: 'Steam',
     format: 'digital',
     releaseYear: 2023,
     edition: 'Digital Deluxe Edition',
+    developer: 'Larian Studios',
   },
   {
     title: 'Hades II',
     platformName: 'Steam',
     format: 'digital',
     notes: 'Purchased during early access',
+    developer: 'Supergiant Games',
+    publisher: 'Supergiant Games',
   },
 ]

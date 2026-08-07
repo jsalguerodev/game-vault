@@ -20,13 +20,13 @@ const runSeed = async (): Promise<void> => {
 
     await clearDatabaseData()
 
-    const data = platformSeedData.map((platform) => ({
+    const platformData = platformSeedData.map((platform) => ({
       ...platform,
       normalizedName: normalize(platform.name),
       normalizedManufacturer: normalize(platform.manufacturer),
     }))
 
-    const platforms = await PlatformModel.insertMany(data)
+    const platforms = await PlatformModel.insertMany(platformData)
 
     const platformsMap = new Map(
       platforms.map((platform) => [platform.name, platform._id]),
@@ -45,6 +45,7 @@ const runSeed = async (): Promise<void> => {
       return {
         ...gameData,
         platformId,
+        normalizedTitle: normalize(game.title),
       }
     })
 

@@ -1,3 +1,4 @@
+import { normalize } from '../../../config/plugins/index.js'
 import type { PlatformEntity } from '../../../domain/entities/platform.entity.js'
 import type {
   PlatformRepository,
@@ -26,11 +27,10 @@ export class UpdatePlatform implements UpdatePlatformUseCase {
     const lookupName = name ?? updatingPlatform.name
     const lookupManufacturer = manufacturer ?? updatingPlatform.manufacturer
 
-    const existingPlatforms =
-      await this.platformRepository.findByNameAndManufacturer(
-        lookupName,
-        lookupManufacturer ?? '',
-      )
+    const existingPlatforms = await this.platformRepository.filter({
+      normalizedName: normalize(lookupName),
+      normalizedManufacturer: normalize(lookupManufacturer ?? ''),
+    })
 
     const duplicateExists = existingPlatforms.some(
       (platform) => platform.id !== updatingPlatform.id,

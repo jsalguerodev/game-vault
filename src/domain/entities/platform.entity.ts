@@ -47,4 +47,19 @@ export class PlatformEntity {
   get updatedAt(): Date {
     return this._updatedAt
   }
+
+  static fromMongoObject = (object: { [key: string]: any }): PlatformEntity => {
+    const { id, name, manufacturer, type, releaseYear, createdAt, updatedAt } =
+      object
+
+    return new PlatformEntity({
+      id: id.toString(),
+      name,
+      manufacturer,
+      type,
+      releaseYear,
+      createdAt,
+      updatedAt,
+    })
+  }
 }

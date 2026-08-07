@@ -1,3 +1,4 @@
+import { normalize } from '../../../config/plugins/index.js'
 import {
   PlatformEntity,
   type PlatformType,
@@ -20,11 +21,10 @@ export class AddPlatform implements AddPlatformUseCase {
 
   public async execute(options: AddPlatformOptions): Promise<PlatformEntity> {
     const { name, manufacturer, type, releaseYear } = options
-    const existingPlatforms =
-      await this.platformRepository.findByNameAndManufacturer(
-        name,
-        manufacturer ?? '',
-      )
+    const existingPlatforms = await this.platformRepository.filter({
+      normalizedName: normalize(name),
+      normalizedManufacturer: normalize(manufacturer ?? ''),
+    })
 
     if (existingPlatforms.length > 0) {
       throw new Error('Platform already exists')

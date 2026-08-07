@@ -1,4 +1,21 @@
 import mongoose from 'mongoose'
+import type { GameFormat } from '../../../../domain/entities/index.js'
+
+export interface GamePersistence {
+  _id: mongoose.Types.ObjectId
+  title: string
+  normalizedTitle: string
+  platformId: mongoose.Types.ObjectId | null
+  format: GameFormat
+  developer: string
+  publisher: string
+  releaseYear: number | null
+  edition: string
+  genres: string[]
+  notes: string
+  createdAt: Date
+  updatedAt: Date
+}
 
 const gameSchema = new mongoose.Schema(
   {
@@ -8,16 +25,35 @@ const gameSchema = new mongoose.Schema(
       required: true,
     },
 
+    normalizedTitle: {
+      type: String,
+      trim: true,
+      required: true,
+    },
+
     platformId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Platform',
-      required: true,
+      required: false,
+      default: null,
     },
 
     format: {
       type: String,
       enum: ['digital', 'physical'],
       required: true,
+    },
+
+    developer: {
+      type: String,
+      trim: true,
+      default: '',
+    },
+
+    publisher: {
+      type: String,
+      trim: true,
+      default: '',
     },
 
     releaseYear: {
@@ -56,4 +92,4 @@ const gameSchema = new mongoose.Schema(
   { timestamps: true },
 )
 
-export const GameModel = mongoose.model('Game', gameSchema)
+export const GameModel = mongoose.model<GamePersistence>('Game', gameSchema)

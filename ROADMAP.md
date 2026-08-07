@@ -29,9 +29,12 @@
 
 - [x] Add platform
 - [x] List platforms
+- [ ] Search platforms
+- [x] Filter platforms
 - [x] Update platform
-- [ ] Add game
-- [ ] List games
+- [ ] Delete platform
+- [x] Add game
+- [x] List games
 - [ ] Search games
 - [ ] Filter games
 - [ ] Update game
