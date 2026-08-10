@@ -1,5 +1,8 @@
 export * from './platforms/add-platform.use-case.js'
 export * from './platforms/list-platforms.use-case.js'
 export * from './platforms/update-platform.use-case.js'
+export * from './platforms/filter-platforms.use-case.js'
+export * from './platforms/search.use-case.js'
+
 export * from './games/add-game.use-case.js'
 export * from './games/list-games.use.case.js'

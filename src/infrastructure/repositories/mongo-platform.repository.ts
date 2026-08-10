@@ -11,6 +11,7 @@ import type {
   PlatformRepository,
   UpdatePlatformData,
   PlatformFilters,
+  PlatformSearchCriteria
 } from '../../domain/repositories/index.js'
 import type { PlatformPersistence } from '../database/mongodb/models/index.js'
 
@@ -75,7 +76,7 @@ export class MongoPlatformRepository implements PlatformRepository {
     return platforms.map((platform) => PlatformEntity.fromMongoObject(platform))
   }
 
-  async filter(filters: PlatformFilters = {}): Promise<PlatformEntity[]> {
+  async filter(filters: PlatformFilters): Promise<PlatformEntity[]> {
     const query = this.platformModel.find()
 
     if (filters.id !== undefined) {
@@ -83,21 +84,15 @@ export class MongoPlatformRepository implements PlatformRepository {
     }
 
     if (filters.name !== undefined) {
-      query.where('name').equals(filters.name)
-    }
-
-    if (filters.normalizedName !== undefined) {
-      query.where('normalizedName').equals(filters.normalizedName)
+      query.where('normalizedName').equals( normalize(filters.name) )
     }
 
     if (filters.manufacturer !== undefined) {
-      query.where('manufacturer').equals(filters.manufacturer)
+      query.where('normalizedManufacturer').equals( normalize(filters.manufacturer) )
     }
 
-    if (filters.normalizedManufacturer !== undefined) {
-      query
-        .where('normalizedManufacturer')
-        .equals(filters.normalizedManufacturer)
+    if (filters.releaseYear !== undefined) {
+      query.where('releaseYear').equals(filters.releaseYear)
     }
 
     if (filters.type !== undefined) {
@@ -119,5 +114,23 @@ export class MongoPlatformRepository implements PlatformRepository {
     }
 
     return PlatformEntity.fromMongoObject(platform)
+  }
+
+  async search(criteria: PlatformSearchCriteria): Promise<PlatformEntity[]> {
+    const query = this.platformModel.find()
+
+    if (criteria.name !== undefined) {
+      const regex = new RegExp( normalize(criteria.name), 'i')
+      query.where('normalizedName').regex(regex)
+    }
+
+    if (criteria.manufacturer !== undefined) {
+      const regex = new RegExp( normalize(criteria.manufacturer), 'i')
+      query.where('normalizedManufacturer').regex(regex)
+    }
+
+    const platforms = await query.exec()
+
+    return platforms.map((platform) => PlatformEntity.fromMongoObject(platform))
   }
 }

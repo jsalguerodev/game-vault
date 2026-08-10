@@ -4,8 +4,10 @@ import {
   AddPlatform,
   ListPlatforms,
   UpdatePlatform,
+  FilterPlatforms,
   AddGame,
   ListGames,
+  SearchPlatform
 } from './application/use-cases/index.js'
 import {
   PlatformModel,
@@ -30,6 +32,8 @@ async function main(): Promise<void> {
     const addPlatform = new AddPlatform(platformRepository)
     const listPlatforms = new ListPlatforms(platformRepository)
     const updatePlatform = new UpdatePlatform(platformRepository)
+    const filterPlatforms = new FilterPlatforms(platformRepository)
+    const searchPlatforms = new SearchPlatform(platformRepository)
 
     const addGame = new AddGame(gameRepository, platformRepository)
     const listGames = new ListGames(gameRepository)

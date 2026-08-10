@@ -29,7 +29,7 @@
 
 - [x] Add platform
 - [x] List platforms
-- [ ] Search platforms
+- [x] Search platforms
 - [x] Filter platforms
 - [x] Update platform
 - [ ] Delete platform

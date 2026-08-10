@@ -22,8 +22,8 @@ export class AddPlatform implements AddPlatformUseCase {
   public async execute(options: AddPlatformOptions): Promise<PlatformEntity> {
     const { name, manufacturer, type, releaseYear } = options
     const existingPlatforms = await this.platformRepository.filter({
-      normalizedName: normalize(name),
-      normalizedManufacturer: normalize(manufacturer ?? ''),
+      name: name,
+      manufacturer: manufacturer ?? '',
     })
 
     if (existingPlatforms.length > 0) {

@@ -10,11 +10,14 @@ export interface UpdatePlatformData {
 export interface PlatformFilters {
   id?: string
   name?: string
-  normalizedName?: string
   manufacturer?: string
-  normalizedManufacturer?: string
   type?: PlatformType
   releaseYear?: number | null
+}
+
+export interface PlatformSearchCriteria {
+  name?: string
+  manufacturer?: string
 }
 
 export interface PlatformRepository {
@@ -24,4 +27,5 @@ export interface PlatformRepository {
   findAll(): Promise<PlatformEntity[]>
   findById(id: string): Promise<PlatformEntity>
   filter(filters: PlatformFilters): Promise<PlatformEntity[]>
+  search(criteria: PlatformSearchCriteria): Promise<PlatformEntity[]>
 }
