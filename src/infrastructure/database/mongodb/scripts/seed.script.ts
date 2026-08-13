@@ -46,6 +46,8 @@ const runSeed = async (): Promise<void> => {
         ...gameData,
         platformId,
         normalizedTitle: normalize(game.title),
+        normalizedDeveloper: normalize(game.developer ?? ''),
+        normalizedPublisher: normalize(game.publisher ?? ''),
       }
     })
 

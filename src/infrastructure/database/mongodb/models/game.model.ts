@@ -1,3 +1,4 @@
+import { normalize } from '../../../../config/plugins/index.js'
 import mongoose from 'mongoose'
 import type { GameFormat } from '../../../../domain/entities/index.js'
 
@@ -8,7 +9,9 @@ export interface GamePersistence {
   platformId: mongoose.Types.ObjectId | null
   format: GameFormat
   developer: string
+  normalizedDeveloper: string
   publisher: string
+  normalizedPublisher: string
   releaseYear: number | null
   edition: string
   genres: string[]
@@ -29,6 +32,12 @@ const gameSchema = new mongoose.Schema(
       type: String,
       trim: true,
       required: true,
+      validate: {
+        validator: function (value: string): boolean {
+          return value === normalize(this.title)
+        },
+        message: 'normalizedTitle is inconsistent with title',
+      },
     },
 
     platformId: {
@@ -50,10 +59,34 @@ const gameSchema = new mongoose.Schema(
       default: '',
     },
 
+    normalizedDeveloper: {
+      type: String,
+      trim: true,
+      default: '',
+      validate: {
+        validator: function (value: string): boolean {
+          return value === normalize(this.developer)
+        },
+        message: 'normalizedDeveloper is inconsistent with developer',
+      },
+    },
+
     publisher: {
       type: String,
       trim: true,
       default: '',
+    },
+
+    normalizedPublisher: {
+      type: String,
+      trim: true,
+      default: '',
+      validate: {
+        validator: function (value: string): boolean {
+          return value === normalize(this.publisher)
+        },
+        message: 'normalizedPublisher is inconsistent with publisher',
+      },
     },
 
     releaseYear: {

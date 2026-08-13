@@ -32,11 +32,11 @@
 - [x] Search platforms
 - [x] Filter platforms
 - [x] Update platform
-- [ ] Delete platform
+- [ ] Remove platform
 - [x] Add game
 - [x] List games
 - [ ] Search games
-- [ ] Filter games
+- [x] Filter games
 - [ ] Update game
 - [ ] Remove game
 - [ ] Enforce duplicate index

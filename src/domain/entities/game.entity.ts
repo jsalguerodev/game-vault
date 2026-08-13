@@ -106,7 +106,7 @@ export class GameEntity {
       createdAt,
       updatedAt,
       id: _id.toString(),
-      platformId: platformId.toString(),
+      platformId: platformId?.toString() ?? null,
     })
   }
 }

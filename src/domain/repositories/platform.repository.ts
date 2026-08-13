@@ -8,7 +8,6 @@ export interface UpdatePlatformData {
 }
 
 export interface PlatformFilters {
-  id?: string
   name?: string
   manufacturer?: string
   type?: PlatformType

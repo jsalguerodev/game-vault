@@ -8,6 +8,8 @@ interface AddGameOptions {
   title: string
   format: GameFormat
   platformId?: string | null
+  developer?: string
+  publisher?: string
   releaseYear?: number | null
   edition?: string
   genres?: string[]
@@ -25,7 +27,7 @@ export class AddGame implements AddGameUseCase {
   ) {}
 
   public async execute(options: AddGameOptions): Promise<GameEntity> {
-    const { title, platformId, format, releaseYear, edition, genres, notes } =
+    const { title, platformId, format, developer, publisher, releaseYear, edition, genres, notes } =
       options
 
     if (platformId && platformId !== null) {
@@ -36,6 +38,8 @@ export class AddGame implements AddGameUseCase {
       title: title,
       format: format,
       platformId: platformId ?? null,
+      developer: developer ?? '',
+      publisher: publisher ?? '',
       releaseYear: releaseYear ?? null,
       edition: edition ?? '',
       genres: genres ?? [],
@@ -45,5 +49,3 @@ export class AddGame implements AddGameUseCase {
     return this.gameRepository.create(game)
   }
 }
-
-// todo: test it!

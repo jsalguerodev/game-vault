@@ -79,10 +79,6 @@ export class MongoPlatformRepository implements PlatformRepository {
   async filter(filters: PlatformFilters): Promise<PlatformEntity[]> {
     const query = this.platformModel.find()
 
-    if (filters.id !== undefined) {
-      query.where('_id').equals(filters.id)
-    }
-
     if (filters.name !== undefined) {
       query.where('normalizedName').equals( normalize(filters.name) )
     }
