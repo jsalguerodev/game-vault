@@ -11,7 +11,7 @@ import type {
   PlatformRepository,
   UpdatePlatformData,
   PlatformFilters,
-  PlatformSearchCriteria
+  PlatformSearchCriteria,
 } from '../../domain/repositories/index.js'
 import type { PlatformPersistence } from '../database/mongodb/models/index.js'
 
@@ -80,11 +80,13 @@ export class MongoPlatformRepository implements PlatformRepository {
     const query = this.platformModel.find()
 
     if (filters.name !== undefined) {
-      query.where('normalizedName').equals( normalize(filters.name) )
+      query.where('normalizedName').equals(normalize(filters.name))
     }
 
     if (filters.manufacturer !== undefined) {
-      query.where('normalizedManufacturer').equals( normalize(filters.manufacturer) )
+      query
+        .where('normalizedManufacturer')
+        .equals(normalize(filters.manufacturer))
     }
 
     if (filters.releaseYear !== undefined) {
@@ -116,12 +118,12 @@ export class MongoPlatformRepository implements PlatformRepository {
     const query = this.platformModel.find()
 
     if (criteria.name !== undefined) {
-      const regex = new RegExp( normalize(criteria.name), 'i')
+      const regex = new RegExp(normalize(criteria.name), 'i')
       query.where('normalizedName').regex(regex)
     }
 
     if (criteria.manufacturer !== undefined) {
-      const regex = new RegExp( normalize(criteria.manufacturer), 'i')
+      const regex = new RegExp(normalize(criteria.manufacturer), 'i')
       query.where('normalizedManufacturer').regex(regex)
     }
 

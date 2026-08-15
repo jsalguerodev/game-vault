@@ -27,8 +27,17 @@ export class AddGame implements AddGameUseCase {
   ) {}
 
   public async execute(options: AddGameOptions): Promise<GameEntity> {
-    const { title, platformId, format, developer, publisher, releaseYear, edition, genres, notes } =
-      options
+    const {
+      title,
+      platformId,
+      format,
+      developer,
+      publisher,
+      releaseYear,
+      edition,
+      genres,
+      notes,
+    } = options
 
     if (platformId && platformId !== null) {
       await this.platformRepository.findById(platformId)

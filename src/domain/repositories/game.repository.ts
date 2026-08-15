@@ -24,7 +24,23 @@ export interface GameFilters {
 }
 
 export interface GameSearchCriteria {
+  title?: string
+  platformName?: string
+  developer?: string
+  publisher?: string
+  edition?: string
+  genre?: string
+  notes?: string
+}
 
+export interface GameRespositorySearchCriteria {
+  title?: string
+  platformIds?: string[]
+  developer?: string
+  publisher?: string
+  edition?: string
+  genre?: string
+  notes?: string
 }
 
 export interface GameRepository {
@@ -34,5 +50,5 @@ export interface GameRepository {
   findAll(): Promise<GameEntity[]>
   filter(filters: GameFilters): Promise<GameEntity[]>
   findById(id: string): Promise<GameEntity>
-  search(criteria: GameSearchCriteria): Promise<GameEntity[]>
+  search(criteria: GameRespositorySearchCriteria): Promise<GameEntity[]>
 }

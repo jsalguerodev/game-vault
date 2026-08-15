@@ -8,7 +8,8 @@ import {
   SearchPlatform,
   AddGame,
   ListGames,
-  FilterGames
+  FilterGames,
+  SearchGames,
 } from './application/use-cases/index.js'
 import {
   PlatformModel,
@@ -39,13 +40,9 @@ async function main(): Promise<void> {
     const addGame = new AddGame(gameRepository, platformRepository)
     const listGames = new ListGames(gameRepository)
     const filterGames = new FilterGames(gameRepository)
-
-    const games = await filterGames.execute({
-      platformId: '6a7bbc6e16992b3b53b29212'
-    })
+    const searchGames = new SearchGames(gameRepository, platformRepository)
 
     console.log('GameVault initialized.')
-    console.log(games)
   } catch (error) {
     if (error instanceof Error)
       console.log('Error initializing GameVault: ', error.message)
