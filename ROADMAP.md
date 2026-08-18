@@ -35,9 +35,9 @@
 - [ ] Remove platform
 - [x] Add game
 - [x] List games
-- [ ] Search games
+- [x] Search games
 - [x] Filter games
-- [ ] Update game
+- [x] Update game
 - [ ] Remove game
 - [ ] Enforce duplicate index
 - [ ] Add friendly duplicate error
