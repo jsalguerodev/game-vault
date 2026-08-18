@@ -1,6 +1,9 @@
 import type { Model } from 'mongoose'
 import type { GamePersistence } from '../database/mongodb/models/index.js'
-import { GameEntity } from '../../domain/entities/game.entity.js'
+import {
+  GameEntity,
+  type GameFormat,
+} from '../../domain/entities/game.entity.js'
 import type {
   GameFilters,
   GameRepository,
@@ -9,8 +12,11 @@ import type {
 } from '../../domain/repositories/index.js'
 import mongoose from 'mongoose'
 import { normalize, escape } from '../../config/plugins/index.js'
-import { InvalidPlatformIdError } from '../../domain/errors/index.js'
-
+import {
+  InvalidPlatformIdError,
+  GameNotFoundError,
+} from '../../domain/errors/index.js'
+import { validateMongoId } from '../database/mongodb/validators/index.js'
 export class MongoGameRepository implements GameRepository {
   constructor(private readonly gameModel: Model<GamePersistence>) {}
   async create(game: GameEntity): Promise<GameEntity> {
@@ -38,12 +44,75 @@ export class MongoGameRepository implements GameRepository {
 
     return GameEntity.fromMongoObject(newGame)
   }
-  update(id: string, data: UpdateGameData): Promise<GameEntity> {
-    throw new Error('Method not implemented.')
+  async update(id: string, data: UpdateGameData): Promise<GameEntity> {
+    validateMongoId(id)
+
+    const game = await this.gameModel.findById(id)
+
+    if (!game) {
+      throw new Error(`Game id ${id} not found`)
+    }
+
+    const {
+      title,
+      platformId,
+      format,
+      developer,
+      publisher,
+      releaseYear,
+      edition,
+      genres,
+      notes,
+    } = data
+
+    if (title !== undefined) {
+      game.title = title
+      game.normalizedTitle = normalize(title)
+    }
+
+    if (platformId !== undefined) {
+      validateMongoId(platformId)
+      game.platformId = new mongoose.Types.ObjectId(platformId)
+    }
+
+    if (format !== undefined) {
+      game.format = format
+    }
+
+    if (developer !== undefined) {
+      game.developer = developer
+      game.normalizedDeveloper = normalize(developer)
+    }
+
+    if (publisher !== undefined) {
+      game.publisher = publisher
+      game.normalizedPublisher = normalize(publisher)
+    }
+
+    if (releaseYear !== undefined) {
+      game.releaseYear = releaseYear
+    }
+
+    if (edition !== undefined) {
+      game.edition = edition
+    }
+
+    if (genres !== undefined) {
+      game.genres = genres
+    }
+    if (notes !== undefined) {
+      game.notes = notes
+    }
+
+    await game.save()
+
+    return GameEntity.fromMongoObject(game)
   }
+
   delete(id: string): Promise<void> {
     throw new Error('Method not implemented.')
   }
+
   async findAll(): Promise<GameEntity[]> {
     const games = await this.gameModel.find()
 
@@ -90,9 +159,19 @@ export class MongoGameRepository implements GameRepository {
 
     return games.map((game) => GameEntity.fromMongoObject(game))
   }
-  findById(id: string): Promise<GameEntity> {
-    throw new Error('Method not implemented.')
+
+  async findById(id: string): Promise<GameEntity> {
+    validateMongoId(id)
+
+    const game = await this.gameModel.findById(id)
+
+    if (!game) {
+      throw new GameNotFoundError(id)
+    }
+
+    return GameEntity.fromMongoObject(game)
   }
+
   async search(criteria: GameRespositorySearchCriteria): Promise<GameEntity[]> {
     const query = this.gameModel.find()
 

@@ -1,12 +1,9 @@
 import type { Model } from 'mongoose'
-import { isObjectIdOrHexString as isValidID } from 'mongoose'
 
-import { normalize } from '../../config/plugins/index.js'
+import { normalize, escape } from '../../config/plugins/index.js'
 import { PlatformEntity } from '../../domain/entities/index.js'
-import {
-  PlatformNotFoundError,
-  InvalidPlatformIdError,
-} from '../../domain/errors/index.js'
+import { PlatformNotFoundError } from '../../domain/errors/index.js'
+import { validateMongoId } from '../database/mongodb/validators/index.js'
 import type {
   PlatformRepository,
   UpdatePlatformData,
@@ -14,12 +11,6 @@ import type {
   PlatformSearchCriteria,
 } from '../../domain/repositories/index.js'
 import type { PlatformPersistence } from '../database/mongodb/models/index.js'
-
-const validatePlatformId = (id: string) => {
-  if (!isValidID(id)) {
-    throw new InvalidPlatformIdError(id)
-  }
-}
 
 export class MongoPlatformRepository implements PlatformRepository {
   constructor(private readonly platformModel: Model<PlatformPersistence>) {}
@@ -38,7 +29,7 @@ export class MongoPlatformRepository implements PlatformRepository {
   }
 
   async update(id: string, data: UpdatePlatformData): Promise<PlatformEntity> {
-    validatePlatformId(id)
+    validateMongoId(id)
 
     const editingPlatform = await this.platformModel.findById(id)
 
@@ -103,7 +94,7 @@ export class MongoPlatformRepository implements PlatformRepository {
   }
 
   async findById(id: string): Promise<PlatformEntity> {
-    validatePlatformId(id)
+    validateMongoId(id)
 
     const platform = await this.platformModel.findById(id)
 
@@ -117,13 +108,15 @@ export class MongoPlatformRepository implements PlatformRepository {
   async search(criteria: PlatformSearchCriteria): Promise<PlatformEntity[]> {
     const query = this.platformModel.find()
 
-    if (criteria.name !== undefined) {
-      const regex = new RegExp(normalize(criteria.name), 'i')
+    if (criteria.name?.trim()) {
+      const normalizedCriteria = normalize(criteria.name)
+      const regex = new RegExp(escape(normalizedCriteria), 'i')
       query.where('normalizedName').regex(regex)
     }
 
     if (criteria.manufacturer !== undefined) {
-      const regex = new RegExp(normalize(criteria.manufacturer), 'i')
+      const normalizedCriteria = normalize(criteria.manufacturer)
+      const regex = new RegExp(escape(normalizedCriteria), 'i')
       query.where('normalizedManufacturer').regex(regex)
     }
 
