@@ -109,8 +109,14 @@ export class MongoGameRepository implements GameRepository {
     return GameEntity.fromMongoObject(game)
   }
 
-  delete(id: string): Promise<void> {
-    throw new Error('Method not implemented.')
+  async delete(id: string): Promise<void> {
+    validateMongoId(id)
+
+    const game = await this.gameModel.findByIdAndDelete(id)
+
+    if (!game) {
+      throw new GameNotFoundError(id)
+    }
   }
 
   async findAll(): Promise<GameEntity[]> {

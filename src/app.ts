@@ -6,11 +6,15 @@ import {
   UpdatePlatform,
   FilterPlatforms,
   SearchPlatform,
+  RemovePlatform,
+} from './application/use-cases/index.js'
+import {
   AddGame,
   ListGames,
   FilterGames,
   SearchGames,
   UpdateGame,
+  RemoveGame,
 } from './application/use-cases/index.js'
 import {
   PlatformModel,
@@ -37,12 +41,14 @@ async function main(): Promise<void> {
     const updatePlatform = new UpdatePlatform(platformRepository)
     const filterPlatforms = new FilterPlatforms(platformRepository)
     const searchPlatforms = new SearchPlatform(platformRepository)
+    const removePlatform = new RemovePlatform(platformRepository)
 
     const addGame = new AddGame(gameRepository, platformRepository)
     const listGames = new ListGames(gameRepository)
     const filterGames = new FilterGames(gameRepository)
     const searchGames = new SearchGames(gameRepository, platformRepository)
     const updateGame = new UpdateGame(gameRepository)
+    const removeGame = new RemoveGame(gameRepository)
 
     console.log('GameVault initialized.')
   } catch (error) {

@@ -32,14 +32,14 @@
 - [x] Search platforms
 - [x] Filter platforms
 - [x] Update platform
-- [ ] Remove platform
+- [x] Remove platform
 - [x] Add game
 - [x] List games
 - [x] Search games
 - [x] Filter games
 - [x] Update game
-- [ ] Remove game
-- [ ] Enforce duplicate index
+- [x] Remove game
+- [x] Enforce duplicate index
 - [ ] Add friendly duplicate error
 
 ## Milestone 3: Play Tracking
