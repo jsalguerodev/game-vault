@@ -40,19 +40,20 @@
 - [x] Update game
 - [x] Remove game
 - [x] Enforce duplicate index
-- [ ] Add friendly duplicate error
+- [x] Add friendly duplicate error
 
 ## Milestone 3: Play Tracking
 
-- [ ] Add play-session entity
-- [ ] Add play-session repository
-- [ ] Record play session
-- [ ] Update total playtime
-- [ ] Update last-played date
-- [ ] Change game status
-- [ ] Store completion date
-- [ ] Test multi-write consistency
-- [ ] Add transaction support if needed
+- [x] Add play-session entity
+- [x] Add play-session repository
+- [x] Record play session
+- [x] Update total playtime
+- [x] Update last-played date
+- [x] Update game status ~~Change game status~~
+- [x] Update completion date ~~Store Update completion date~~
+- [x] Remove play session
+- [x] Test multi-write consistency
+- [x] ~~Add transaction support if needed~~ No needed as of yet
 
 ## Milestone 4: Wishlist
 

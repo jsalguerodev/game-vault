@@ -1,6 +1,9 @@
 import { normalize } from '../../../../config/plugins/index.js'
 import mongoose from 'mongoose'
-import type { GameFormat } from '../../../../domain/entities/index.js'
+import type {
+  GameFormat,
+  GameStatus,
+} from '../../../../domain/entities/index.js'
 
 export interface GamePersistence {
   _id: mongoose.Types.ObjectId
@@ -16,6 +19,8 @@ export interface GamePersistence {
   edition: string
   genres: string[]
   notes: string
+  status: GameStatus
+  completedAt: Date | null
   createdAt: Date
   updatedAt: Date
 }
@@ -120,6 +125,37 @@ const gameSchema = new mongoose.Schema(
     notes: {
       type: String,
       default: '',
+    },
+
+    status: {
+      type: String,
+      enum: [
+        'backlog',
+        'playing',
+        'paused',
+        'completed',
+        'dropped',
+        'cataloged',
+      ],
+      required: true,
+      default: 'cataloged',
+    },
+
+    completedAt: {
+      type: Date,
+      default: null,
+      required: function (this: GamePersistence): boolean {
+        return this.status === 'completed'
+      },
+      validate: {
+        validator: function (
+          this: GamePersistence,
+          value: Date | null,
+        ): boolean {
+          return value === null || this.status === 'completed'
+        },
+        message: 'completedAt can only have a value when status is completed',
+      },
     },
   },
   { timestamps: true },

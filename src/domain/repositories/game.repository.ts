@@ -1,4 +1,4 @@
-import type { GameEntity, GameFormat } from '../entities/index.js'
+import type { GameEntity, GameFormat, GameStatus } from '../entities/index.js'
 
 export interface UpdateGameData {
   title?: string
@@ -10,6 +10,8 @@ export interface UpdateGameData {
   edition?: string
   genres?: string[]
   notes?: string
+  status?: GameStatus
+  completedAt?: Date | null
 }
 
 export interface GameFilters {
@@ -21,6 +23,8 @@ export interface GameFilters {
   releaseYear?: number | null
   edition?: string
   genres?: string[]
+  status?: GameStatus
+  completedAt?: Date | null
 }
 
 export interface GameSearchCriteria {
@@ -51,4 +55,8 @@ export interface GameRepository {
   filter(filters: GameFilters): Promise<GameEntity[]>
   findById(id: string): Promise<GameEntity>
   search(criteria: GameRespositorySearchCriteria): Promise<GameEntity[]>
+  replacePlatformReference(
+    currentPlatformId: string,
+    newPlatformId: string | null,
+  ): Promise<number>
 }

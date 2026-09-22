@@ -2,7 +2,7 @@ import type { GameEntity } from '../../../domain/entities/index.js'
 import type {
   GameRepository,
   UpdateGameData,
-} from '../../../domain/repositories/game.repository.js'
+} from '../../../domain/repositories/index.js'
 import { InvalidGameIdError } from '../../../domain/errors/index.js'
 
 interface UpdateGameUseCase {

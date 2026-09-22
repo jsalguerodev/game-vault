@@ -1,27 +1,22 @@
 import type { Model } from 'mongoose'
 import type { GamePersistence } from '../database/mongodb/models/index.js'
-import {
-  GameEntity,
-  type GameFormat,
-} from '../../domain/entities/game.entity.js'
 import type {
   GameFilters,
   GameRepository,
   GameRespositorySearchCriteria,
   UpdateGameData,
 } from '../../domain/repositories/index.js'
+import { GameEntity } from '../../domain/entities/index.js'
 import mongoose from 'mongoose'
 import { normalize, escape } from '../../config/plugins/index.js'
-import {
-  InvalidPlatformIdError,
-  GameNotFoundError,
-} from '../../domain/errors/index.js'
+import { GameNotFoundError } from '../../domain/errors/index.js'
 import { validateMongoId } from '../database/mongodb/validators/index.js'
+
 export class MongoGameRepository implements GameRepository {
   constructor(private readonly gameModel: Model<GamePersistence>) {}
   async create(game: GameEntity): Promise<GameEntity> {
-    if (game.platformId && !mongoose.isObjectIdOrHexString(game.platformId)) {
-      throw new InvalidPlatformIdError(game.platformId)
+    if (game.platformId) {
+      validateMongoId(game.platformId)
     }
 
     const newGame = await this.gameModel.create({
@@ -40,6 +35,8 @@ export class MongoGameRepository implements GameRepository {
       edition: game.edition,
       genres: game.genres,
       notes: game.notes,
+      status: game.status,
+      completedAt: game.completedAt,
     })
 
     return GameEntity.fromMongoObject(newGame)
@@ -50,7 +47,7 @@ export class MongoGameRepository implements GameRepository {
     const game = await this.gameModel.findById(id)
 
     if (!game) {
-      throw new Error(`Game id ${id} not found`)
+      throw new GameNotFoundError(id)
     }
 
     const {
@@ -63,6 +60,8 @@ export class MongoGameRepository implements GameRepository {
       edition,
       genres,
       notes,
+      status,
+      completedAt,
     } = data
 
     if (title !== undefined) {
@@ -100,8 +99,17 @@ export class MongoGameRepository implements GameRepository {
     if (genres !== undefined) {
       game.genres = genres
     }
+
     if (notes !== undefined) {
       game.notes = notes
+    }
+
+    if (status !== undefined) {
+      game.status = status
+    }
+
+    if (completedAt !== undefined) {
+      game.completedAt = completedAt
     }
 
     await game.save()
@@ -129,6 +137,8 @@ export class MongoGameRepository implements GameRepository {
     const query = this.gameModel.find()
 
     if (filters.platformId !== undefined) {
+      validateMongoId(filters.platformId)
+
       const objectId = new mongoose.Types.ObjectId(filters.platformId)
       query.where('platformId').equals(objectId)
     }
@@ -159,6 +169,14 @@ export class MongoGameRepository implements GameRepository {
 
     if (filters.genres !== undefined) {
       query.where('genres').equals(filters.genres)
+    }
+
+    if (filters.status !== undefined) {
+      query.where('status').equals(filters.status)
+    }
+
+    if (filters.completedAt !== undefined) {
+      query.where('completedAt').equals(filters.completedAt)
     }
 
     const games = await query.exec()
@@ -233,5 +251,27 @@ export class MongoGameRepository implements GameRepository {
     const games = await query.exec()
 
     return games.map((game) => GameEntity.fromMongoObject(game))
+  }
+
+  async replacePlatformReference(
+    currentPlatformId: string,
+    newPlatformId: string | null,
+  ): Promise<number> {
+    validateMongoId(currentPlatformId)
+
+    if (newPlatformId !== null) {
+      validateMongoId(newPlatformId)
+    }
+
+    const operation = await this.gameModel.updateMany(
+      {
+        platformId: currentPlatformId,
+      },
+      {
+        platformId: newPlatformId !== null ? newPlatformId : null,
+      },
+    )
+
+    return operation.modifiedCount
   }
 }

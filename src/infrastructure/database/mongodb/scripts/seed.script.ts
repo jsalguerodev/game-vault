@@ -1,8 +1,12 @@
 import { MongoDatabase } from '../connection.js'
 import { envs, normalize } from '../../../../config/plugins/index.js'
 import { clearDatabaseData } from './clear-database-data.script.js'
-import { GameModel, PlatformModel } from '../models/index.js'
-import { platformSeedData, gameSeedData } from './data/seed.data.js'
+import { GameModel, PlatformModel, PlaySessionModel } from '../models/index.js'
+import {
+  platformSeedData,
+  gameSeedData,
+  playSessionData,
+} from './data/seed.data.js'
 
 const runSeed = async (): Promise<void> => {
   try {
@@ -29,12 +33,12 @@ const runSeed = async (): Promise<void> => {
     const platforms = await PlatformModel.insertMany(platformData)
 
     const platformsMap = new Map(
-      platforms.map((platform) => [platform.name, platform._id]),
+      platforms.map((platform) => [platform.normalizedName, platform._id]),
     )
 
     const gameDocuments = gameSeedData.map((game) => {
       const { platformName, ...gameData } = game
-      const platformId = platformsMap.get(platformName)
+      const platformId = platformsMap.get(normalize(platformName))
 
       if (!platformId) {
         throw new Error(
@@ -52,6 +56,24 @@ const runSeed = async (): Promise<void> => {
     })
 
     const games = await GameModel.insertMany(gameDocuments)
+
+    const gamesMap = new Map(
+      games.map((game) => [game.normalizedTitle, game._id]),
+    )
+
+    const playSessionsDocuments = playSessionData.map((session) => {
+      const { gameTitle, ...playSessionData } = session
+      const gameId = gamesMap.get(normalize(session.gameTitle))
+
+      return {
+        ...playSessionData,
+        gameId,
+      }
+    })
+
+    const playSessions = await PlaySessionModel.insertMany(
+      playSessionsDocuments,
+    )
 
     console.log(`Database seeded successfully.`)
   } catch (error) {

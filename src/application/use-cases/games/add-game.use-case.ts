@@ -1,4 +1,8 @@
-import { GameEntity, type GameFormat } from '../../../domain/entities/index.js'
+import {
+  GameEntity,
+  type GameFormat,
+  type GameStatus,
+} from '../../../domain/entities/index.js'
 import type {
   GameRepository,
   PlatformRepository,
@@ -14,6 +18,8 @@ interface AddGameOptions {
   edition?: string
   genres?: string[]
   notes?: string
+  status?: GameStatus
+  completedAt?: Date | null
 }
 
 interface AddGameUseCase {
@@ -37,6 +43,8 @@ export class AddGame implements AddGameUseCase {
       edition,
       genres,
       notes,
+      status,
+      completedAt,
     } = options
 
     if (platformId && platformId !== null) {
@@ -53,6 +61,8 @@ export class AddGame implements AddGameUseCase {
       edition: edition ?? '',
       genres: genres ?? [],
       notes: notes ?? '',
+      status: status ?? 'cataloged',
+      completedAt: completedAt ?? null,
     })
 
     return this.gameRepository.create(game)

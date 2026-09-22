@@ -53,6 +53,8 @@ export const gameSeedData = [
     genres: ['Action', 'Adventure'],
     developer: 'Nintendo EPD',
     publisher: 'Nintendo',
+    status: 'paused',
+    completedAt: null,
   },
   {
     title: 'Super Mario Odyssey',
@@ -60,6 +62,8 @@ export const gameSeedData = [
     format: 'physical',
     releaseYear: 2017,
     developer: 'Nintendo EPD',
+    status: 'completed',
+    completedAt: new Date('2026-03-11T19:00:00'),
   },
   {
     title: 'Animal Crossing: New Horizons',
@@ -68,6 +72,8 @@ export const gameSeedData = [
     genres: ['Simulation'],
     notes: 'Purchased from the Nintendo eShop',
     publisher: 'Nintendo',
+    status: 'cataloged',
+    completedAt: null,
   },
 
   // Nintendo Switch 2
@@ -79,6 +85,8 @@ export const gameSeedData = [
     genres: ['Racing'],
     developer: 'Nintendo EPD',
     publisher: 'Nintendo',
+    status: 'completed',
+    completedAt: new Date('2025-05-08T18:45:00'),
   },
   {
     title: 'Donkey Kong Bananza',
@@ -86,6 +94,8 @@ export const gameSeedData = [
     format: 'digital',
     releaseYear: 2025,
     developer: 'Nintendo EPD',
+    status: 'backlog',
+    completedAt: null,
   },
   {
     title: 'Kirby Air Riders',
@@ -94,6 +104,8 @@ export const gameSeedData = [
     edition: 'Standard Edition',
     notes: 'Includes original case',
     publisher: 'Nintendo',
+    status: 'completed',
+    completedAt: new Date('2025-04-06T18:45:00'),
   },
 
   // PlayStation 4
@@ -105,6 +117,8 @@ export const gameSeedData = [
     genres: ['Action RPG'],
     developer: 'FromSoftware',
     publisher: 'Sony Computer Entertainment',
+    status: 'dropped',
+    completedAt: null,
   },
   {
     title: 'God of War',
@@ -113,6 +127,8 @@ export const gameSeedData = [
     releaseYear: 2018,
     edition: 'Digital Deluxe Edition',
     developer: 'Santa Monica Studio',
+    status: 'cataloged',
+    completedAt: null,
   },
   {
     title: 'The Last of Us Part II',
@@ -120,6 +136,8 @@ export const gameSeedData = [
     format: 'physical',
     notes: 'Pre-owned copy',
     publisher: 'Sony Interactive Entertainment',
+    status: 'completed',
+    completedAt: new Date('2025-04-24T18:45:00'),
   },
 
   // PlayStation 5
@@ -131,12 +149,16 @@ export const gameSeedData = [
     genres: ['Action RPG'],
     developer: 'Bluepoint Games',
     publisher: 'Sony Interactive Entertainment',
+    status: 'completed',
+    completedAt: new Date('2026-03-18T18:45:00'),
   },
   {
     title: 'Ratchet & Clank: Rift Apart',
     platformName: 'Playstation 5',
     format: 'digital',
     releaseYear: 2021,
+    status: 'paused',
+    completedAt: null,
   },
   {
     title: 'Final Fantasy VII Rebirth',
@@ -147,6 +169,8 @@ export const gameSeedData = [
     notes: 'Steelbook included',
     developer: 'Square Enix',
     publisher: 'Square Enix',
+    status: 'dropped',
+    completedAt: null,
   },
 
   // Xbox One
@@ -157,6 +181,8 @@ export const gameSeedData = [
     releaseYear: 2014,
     genres: ['Action', 'Adventure'],
     developer: 'Insomniac Games',
+    status: 'paused',
+    completedAt: null,
   },
   {
     title: 'Quantum Break',
@@ -164,6 +190,8 @@ export const gameSeedData = [
     format: 'physical',
     releaseYear: 2016,
     publisher: 'Microsoft Studios',
+    status: 'backlog',
+    completedAt: null,
   },
   {
     title: 'Ryse: Son of Rome',
@@ -172,6 +200,8 @@ export const gameSeedData = [
     notes: 'Day One Edition',
     developer: 'Crytek',
     publisher: 'Microsoft Studios',
+    status: 'backlog',
+    completedAt: null,
   },
 
   // Xbox Series
@@ -183,6 +213,8 @@ export const gameSeedData = [
     genres: ['RPG', 'Science Fiction'],
     developer: 'Bethesda Game Studios',
     publisher: 'Bethesda Softworks',
+    status: 'playing',
+    completedAt: null,
   },
   {
     title: 'Forza Motorsport',
@@ -190,6 +222,8 @@ export const gameSeedData = [
     format: 'physical',
     releaseYear: 2023,
     developer: 'Turn 10 Studios',
+    status: 'playing',
+    completedAt: null,
   },
   {
     title: 'Senua’s Saga: Hellblade II',
@@ -198,6 +232,8 @@ export const gameSeedData = [
     genres: ['Action', 'Adventure'],
     notes: 'Installed through Game Pass',
     publisher: 'Xbox Game Studios',
+    status: 'cataloged',
+    completedAt: null,
   },
 
   // Steam
@@ -209,6 +245,8 @@ export const gameSeedData = [
     genres: ['VR', 'Action'],
     developer: 'Valve',
     publisher: 'Valve',
+    status: 'playing',
+    completedAt: null,
   },
   {
     title: 'Baldur’s Gate 3',
@@ -217,6 +255,8 @@ export const gameSeedData = [
     releaseYear: 2023,
     edition: 'Digital Deluxe Edition',
     developer: 'Larian Studios',
+    status: 'completed',
+    completedAt: new Date('2025-11-13T19:15:00'),
   },
   {
     title: 'Hades II',
@@ -225,5 +265,241 @@ export const gameSeedData = [
     notes: 'Purchased during early access',
     developer: 'Supergiant Games',
     publisher: 'Supergiant Games',
+    status: 'playing',
+    completedAt: null,
+  },
+]
+
+export const playSessionData = [
+  {
+    gameTitle: 'Sunset Overdrive',
+    playedAt: new Date('2026-01-03T19:00:00'),
+    durationMinutes: 180,
+  },
+  {
+    gameTitle: 'Baldur’s Gate 3',
+    playedAt: new Date('2026-01-16T12:00:00'),
+    durationMinutes: 30,
+  },
+  {
+    gameTitle: 'Baldur’s Gate 3',
+    playedAt: new Date('2026-01-19T17:15:00'),
+    durationMinutes: 90,
+  },
+  {
+    gameTitle: 'Starfield',
+    playedAt: new Date('2026-01-21T10:45:00'),
+    durationMinutes: 45,
+  },
+  {
+    gameTitle: 'Donkey Kong Bananza',
+    playedAt: new Date('2026-01-21T17:30:00'),
+    durationMinutes: 105,
+  },
+  {
+    gameTitle: 'Kirby Air Riders',
+    playedAt: new Date('2026-01-21T22:15:00'),
+    durationMinutes: 45,
+    notes: 'Finished a difficult section',
+  },
+  {
+    gameTitle: 'Bloodborne',
+    playedAt: new Date('2026-02-11T16:45:00'),
+    durationMinutes: 90,
+  },
+  {
+    gameTitle: 'Hades II',
+    playedAt: new Date('2026-02-24T17:15:00'),
+    durationMinutes: 150,
+    notes: 'Finished a difficult section',
+  },
+  {
+    gameTitle: 'Super Mario Odyssey',
+    playedAt: new Date('2026-02-25T12:00:00'),
+    durationMinutes: 180,
+    notes: 'Worked on achievements',
+  },
+  {
+    gameTitle: 'Half-Life: Alyx',
+    playedAt: new Date('2026-02-27T10:30:00'),
+    durationMinutes: 30,
+  },
+  {
+    gameTitle: 'Half-Life: Alyx',
+    playedAt: new Date('2026-02-28T18:15:00'),
+    durationMinutes: 30,
+    notes: 'Worked on achievements',
+  },
+  {
+    gameTitle: 'Mario Kart World',
+    playedAt: new Date('2026-03-28T10:00:00'),
+    durationMinutes: 120,
+    notes: 'Focused on progression',
+  },
+  {
+    gameTitle: 'Animal Crossing: New Horizons',
+    playedAt: new Date('2026-03-29T13:15:00'),
+    durationMinutes: 75,
+  },
+  {
+    gameTitle: "Demon's Souls",
+    playedAt: new Date('2026-04-12T23:45:00'),
+    durationMinutes: 60,
+    notes: 'Tried a new build',
+  },
+  {
+    gameTitle: 'The Last of Us Part II',
+    playedAt: new Date('2026-04-13T13:00:00'),
+    durationMinutes: 75,
+  },
+  {
+    gameTitle: 'Ratchet & Clank: Rift Apart',
+    playedAt: new Date('2026-04-13T14:15:00'),
+    durationMinutes: 60,
+    notes: 'Completed a side quest',
+  },
+  {
+    gameTitle: 'Senua’s Saga: Hellblade II',
+    playedAt: new Date('2026-04-19T12:15:00'),
+    durationMinutes: 90,
+    notes: 'Worked on achievements',
+  },
+  {
+    gameTitle: 'Quantum Break',
+    playedAt: new Date('2026-04-27T09:30:00'),
+    durationMinutes: 180,
+  },
+  {
+    gameTitle: 'Final Fantasy VII Rebirth',
+    playedAt: new Date('2026-04-30T17:30:00'),
+    durationMinutes: 180,
+  },
+  {
+    gameTitle: 'Ryse: Son of Rome',
+    playedAt: new Date('2026-05-10T18:15:00'),
+    durationMinutes: 60,
+    notes: 'Explored for collectibles',
+  },
+  {
+    gameTitle: 'Quantum Break',
+    playedAt: new Date('2026-05-10T23:00:00'),
+    durationMinutes: 90,
+  },
+  {
+    gameTitle: 'Forza Motorsport',
+    playedAt: new Date('2026-05-17T21:15:00'),
+    durationMinutes: 60,
+  },
+  {
+    gameTitle: 'Ryse: Son of Rome',
+    playedAt: new Date('2026-05-19T21:00:00'),
+    durationMinutes: 105,
+    notes: 'Completed a side quest',
+  },
+  {
+    gameTitle: 'Forza Motorsport',
+    playedAt: new Date('2026-05-21T11:30:00'),
+    durationMinutes: 180,
+  },
+  {
+    gameTitle: 'The Last of Us Part II',
+    playedAt: new Date('2026-05-26T23:30:00'),
+    durationMinutes: 75,
+  },
+  {
+    gameTitle: 'Mario Kart World',
+    playedAt: new Date('2026-06-04T13:00:00'),
+    durationMinutes: 150,
+    notes: 'Short evening session',
+  },
+  {
+    gameTitle: 'Kirby Air Riders',
+    playedAt: new Date('2026-06-12T22:30:00'),
+    durationMinutes: 60,
+    notes: 'Tried a new build',
+  },
+  {
+    gameTitle: 'The Legend of Zelda: Breath of the Wild',
+    playedAt: new Date('2026-06-13T10:00:00'),
+    durationMinutes: 90,
+    notes: 'Explored for collectibles',
+  },
+  {
+    gameTitle: 'God of War',
+    playedAt: new Date('2026-06-13T20:15:00'),
+    durationMinutes: 105,
+  },
+  {
+    gameTitle: 'Senua’s Saga: Hellblade II',
+    playedAt: new Date('2026-06-16T14:45:00'),
+    durationMinutes: 180,
+    notes: 'Tried a new build',
+  },
+  {
+    gameTitle: 'Bloodborne',
+    playedAt: new Date('2026-06-21T13:00:00'),
+    durationMinutes: 60,
+    notes: 'Tried a new build',
+  },
+  {
+    gameTitle: 'Super Mario Odyssey',
+    playedAt: new Date('2026-06-29T17:45:00'),
+    durationMinutes: 75,
+    notes: 'Played with friends',
+  },
+  {
+    gameTitle: 'Donkey Kong Bananza',
+    playedAt: new Date('2026-06-30T10:00:00'),
+    durationMinutes: 75,
+  },
+  {
+    gameTitle: 'The Legend of Zelda: Breath of the Wild',
+    playedAt: new Date('2026-07-08T10:00:00'),
+    durationMinutes: 120,
+    notes: 'Completed a side quest',
+  },
+  {
+    gameTitle: "Demon's Souls",
+    playedAt: new Date('2026-07-10T17:30:00'),
+    durationMinutes: 120,
+  },
+  {
+    gameTitle: 'Ratchet & Clank: Rift Apart',
+    playedAt: new Date('2026-07-13T09:00:00'),
+    durationMinutes: 60,
+  },
+  {
+    gameTitle: 'Sunset Overdrive',
+    playedAt: new Date('2026-07-16T19:30:00'),
+    durationMinutes: 45,
+    notes: 'Explored for collectibles',
+  },
+  {
+    gameTitle: 'God of War',
+    playedAt: new Date('2026-07-18T09:15:00'),
+    durationMinutes: 30,
+  },
+  {
+    gameTitle: 'Final Fantasy VII Rebirth',
+    playedAt: new Date('2026-07-22T19:45:00'),
+    durationMinutes: 45,
+    notes: 'Relaxed session',
+  },
+  {
+    gameTitle: 'Hades II',
+    playedAt: new Date('2026-07-26T15:15:00'),
+    durationMinutes: 45,
+    notes: 'Short evening session',
+  },
+  {
+    gameTitle: 'Animal Crossing: New Horizons',
+    playedAt: new Date('2026-07-27T22:00:00'),
+    durationMinutes: 60,
+  },
+  {
+    gameTitle: 'Starfield',
+    playedAt: new Date('2026-08-26T14:30:00'),
+    durationMinutes: 75,
+    notes: 'Relaxed session',
   },
 ]

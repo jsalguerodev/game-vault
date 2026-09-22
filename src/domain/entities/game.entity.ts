@@ -1,4 +1,6 @@
 export type GameFormat = 'digital' | 'physical'
+export type GameStatus =
+  'backlog' | 'playing' | 'paused' | 'completed' | 'dropped' | 'cataloged'
 
 export interface GameEntityOptions {
   title: string
@@ -11,6 +13,8 @@ export interface GameEntityOptions {
   edition?: string
   genres?: string[]
   notes?: string
+  status?: GameStatus
+  completedAt?: Date | null
   createdAt?: Date
   updatedAt?: Date
 }
@@ -26,6 +30,8 @@ export class GameEntity {
   public publisher: string
   public releaseYear: number | null
   public notes: string
+  public status: GameStatus
+  public completedAt: Date | null
   readonly createdAt: Date
   private _updatedAt: Date
 
@@ -41,6 +47,8 @@ export class GameEntity {
       publisher,
       releaseYear,
       notes,
+      status,
+      completedAt,
       createdAt,
       updatedAt,
     } = options
@@ -70,6 +78,8 @@ export class GameEntity {
     this.publisher = publisher ?? ''
     this.releaseYear = releaseYear ?? null
     this.notes = notes ?? ''
+    this.status = status ?? 'cataloged'
+    this.completedAt = completedAt ?? null
     this.createdAt = createdAt ?? new Date()
     this._updatedAt = updatedAt ?? new Date()
   }
@@ -90,6 +100,8 @@ export class GameEntity {
       edition,
       genres,
       notes,
+      status,
+      completedAt,
       createdAt,
       updatedAt,
     } = object
@@ -103,6 +115,8 @@ export class GameEntity {
       edition,
       genres,
       notes,
+      status,
+      completedAt,
       createdAt,
       updatedAt,
       id: _id.toString(),
