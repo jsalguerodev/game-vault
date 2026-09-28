@@ -1,5 +1,5 @@
-import type { GameEntity, GameFormat, GameStatus } from '../entities/index.js'
-
+import type { GameEntity, GameStatus } from '../entities/index.js'
+import type { GameFormat } from '../../domain/types/index.js'
 export interface UpdateGameData {
   title?: string
   platformId?: string

@@ -1,11 +1,12 @@
 import { MongoDatabase } from '../connection.js'
 import { envs, normalize } from '../../../../config/plugins/index.js'
 import { clearDatabaseData } from './clear-database-data.script.js'
-import { GameModel, PlatformModel, PlaySessionModel } from '../models/index.js'
+import { GameModel, PlatformModel, PlaySessionModel, WishlistModel } from '../models/index.js'
 import {
   platformSeedData,
   gameSeedData,
-  playSessionData,
+  playSessionSeedData,
+  wishlistSeedData,
 } from './data/seed.data.js'
 
 const runSeed = async (): Promise<void> => {
@@ -61,12 +62,12 @@ const runSeed = async (): Promise<void> => {
       games.map((game) => [game.normalizedTitle, game._id]),
     )
 
-    const playSessionsDocuments = playSessionData.map((session) => {
-      const { gameTitle, ...playSessionData } = session
+    const playSessionsDocuments = playSessionSeedData.map((session) => {
+      const { gameTitle, ...playSessionSeedData } = session
       const gameId = gamesMap.get(normalize(session.gameTitle))
 
       return {
-        ...playSessionData,
+        ...playSessionSeedData,
         gameId,
       }
     })
@@ -74,6 +75,25 @@ const runSeed = async (): Promise<void> => {
     const playSessions = await PlaySessionModel.insertMany(
       playSessionsDocuments,
     )
+
+    const wishlistDocuments = wishlistSeedData.map((game) => {
+      const { platformName, ...gameData } = game
+      const platformId = platformsMap.get(normalize(platformName))
+
+      if (!platformId){
+        throw new Error (`Platform "${platformName}" was not found for game "${game.title}".`)
+      }
+
+      return {
+        ...gameData,
+        platformId,
+        normalizedTitle: normalize(game.title),
+        normalizedDeveloper: normalize(game.developer ?? ''),
+        normalizedPublisher: normalize(game.publisher ?? '')
+      }
+    })
+
+    const wishlistedGames = await WishlistModel.insertMany(wishlistDocuments)
 
     console.log(`Database seeded successfully.`)
   } catch (error) {

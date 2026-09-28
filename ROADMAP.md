@@ -57,7 +57,7 @@
 
 ## Milestone 4: Wishlist
 
-- [ ] Add wishlist entity
+- [x] Add wishlist entity
 - [ ] Add wishlist repository
 - [ ] Add wishlist item
 - [ ] List wishlist items

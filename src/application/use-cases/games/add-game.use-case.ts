@@ -1,12 +1,10 @@
-import {
-  GameEntity,
-  type GameFormat,
-  type GameStatus,
-} from '../../../domain/entities/index.js'
+import { GameEntity, type GameStatus } from '../../../domain/entities/index.js'
 import type {
   GameRepository,
   PlatformRepository,
 } from '../../../domain/repositories/index.js'
+
+import type { GameFormat } from '../../../domain/types/index.js'
 
 interface AddGameOptions {
   title: string

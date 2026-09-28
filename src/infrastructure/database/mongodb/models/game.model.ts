@@ -1,9 +1,7 @@
 import { normalize } from '../../../../config/plugins/index.js'
 import mongoose from 'mongoose'
-import type {
-  GameFormat,
-  GameStatus,
-} from '../../../../domain/entities/index.js'
+import type { GameStatus } from '../../../../domain/entities/index.js'
+import type { GameFormat } from '../../../../domain/types/index.js'
 
 export interface GamePersistence {
   _id: mongoose.Types.ObjectId

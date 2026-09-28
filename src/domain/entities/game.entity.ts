@@ -1,22 +1,14 @@
-export type GameFormat = 'digital' | 'physical'
+import type { GameLikeData, GameFormat } from '../types/index.js'
+
 export type GameStatus =
   'backlog' | 'playing' | 'paused' | 'completed' | 'dropped' | 'cataloged'
 
-export interface GameEntityOptions {
-  title: string
-  format: GameFormat
+export interface GameEntityOptions extends GameLikeData {
   id?: string
-  platformId?: string | null
-  developer?: string
-  publisher?: string
-  releaseYear?: number | null
-  edition?: string
-  genres?: string[]
-  notes?: string
-  status?: GameStatus
-  completedAt?: Date | null
   createdAt?: Date
   updatedAt?: Date
+  status?: GameStatus
+  completedAt?: Date | null
 }
 
 export class GameEntity {
