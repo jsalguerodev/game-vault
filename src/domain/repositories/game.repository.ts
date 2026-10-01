@@ -1,50 +1,26 @@
 import type { GameEntity, GameStatus } from '../entities/index.js'
-import type { GameFormat } from '../../domain/types/index.js'
-export interface UpdateGameData {
-  title?: string
-  platformId?: string
-  format?: GameFormat
-  developer?: string
-  publisher?: string
-  releaseYear?: number | null
-  edition?: string
-  genres?: string[]
-  notes?: string
+import type {
+  GameLikeUpdateData,
+  GameLikeSearchCriteriaData,
+  GameLikeFiltersData,
+} from '../../domain/types/index.js'
+
+export interface UpdateGameData extends GameLikeUpdateData {
   status?: GameStatus
   completedAt?: Date | null
 }
 
-export interface GameFilters {
-  title?: string
-  platformId?: string
-  format?: GameFormat
-  developer?: string
-  publisher?: string
-  releaseYear?: number | null
-  edition?: string
-  genres?: string[]
+export interface GameFilters extends GameLikeFiltersData {
   status?: GameStatus
   completedAt?: Date | null
 }
 
-export interface GameSearchCriteria {
-  title?: string
+export interface GameSearchCriteria extends GameLikeSearchCriteriaData {
   platformName?: string
-  developer?: string
-  publisher?: string
-  edition?: string
-  genre?: string
-  notes?: string
 }
 
-export interface GameRespositorySearchCriteria {
-  title?: string
+export interface GameRespositorySearchCriteria extends GameLikeSearchCriteriaData {
   platformIds?: string[]
-  developer?: string
-  publisher?: string
-  edition?: string
-  genre?: string
-  notes?: string
 }
 
 export interface GameRepository {

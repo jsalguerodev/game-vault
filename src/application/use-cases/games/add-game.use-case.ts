@@ -3,19 +3,9 @@ import type {
   GameRepository,
   PlatformRepository,
 } from '../../../domain/repositories/index.js'
+import type { GameLikeData } from '../../../domain/types/index.js'
 
-import type { GameFormat } from '../../../domain/types/index.js'
-
-interface AddGameOptions {
-  title: string
-  format: GameFormat
-  platformId?: string | null
-  developer?: string
-  publisher?: string
-  releaseYear?: number | null
-  edition?: string
-  genres?: string[]
-  notes?: string
+interface AddGameOptions extends GameLikeData {
   status?: GameStatus
   completedAt?: Date | null
 }

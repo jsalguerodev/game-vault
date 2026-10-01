@@ -27,17 +27,20 @@ import {
   PlatformModel,
   GameModel,
   PlaySessionModel,
+  WishlistModel,
 } from './infrastructure/database/mongodb/models/index.js'
 import {
   MongoPlatformRepository,
   MongoGameRepository,
   MongoPlaySessionRepository,
+  MongoWishlistRepository,
 } from './infrastructure/repositories/index.js'
 
 async function main(): Promise<void> {
   const platformRepository = new MongoPlatformRepository(PlatformModel)
   const gameRepository = new MongoGameRepository(GameModel)
   const playSessionRepository = new MongoPlaySessionRepository(PlaySessionModel)
+  const wishlistRepository = new MongoWishlistRepository(WishlistModel)
 
   try {
     await MongoDatabase.connect({
@@ -54,6 +57,7 @@ async function main(): Promise<void> {
     const removePlatform = new RemovePlatform(
       platformRepository,
       gameRepository,
+      wishlistRepository,
     )
 
     const addGame = new AddGame(gameRepository, platformRepository)

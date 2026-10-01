@@ -1,7 +1,12 @@
 import { MongoDatabase } from '../connection.js'
 import { envs, normalize } from '../../../../config/plugins/index.js'
 import { clearDatabaseData } from './clear-database-data.script.js'
-import { GameModel, PlatformModel, PlaySessionModel, WishlistModel } from '../models/index.js'
+import {
+  GameModel,
+  PlatformModel,
+  PlaySessionModel,
+  WishlistModel,
+} from '../models/index.js'
 import {
   platformSeedData,
   gameSeedData,
@@ -80,8 +85,10 @@ const runSeed = async (): Promise<void> => {
       const { platformName, ...gameData } = game
       const platformId = platformsMap.get(normalize(platformName))
 
-      if (!platformId){
-        throw new Error (`Platform "${platformName}" was not found for game "${game.title}".`)
+      if (!platformId) {
+        throw new Error(
+          `Platform "${platformName}" was not found for game "${game.title}".`,
+        )
       }
 
       return {
@@ -89,7 +96,7 @@ const runSeed = async (): Promise<void> => {
         platformId,
         normalizedTitle: normalize(game.title),
         normalizedDeveloper: normalize(game.developer ?? ''),
-        normalizedPublisher: normalize(game.publisher ?? '')
+        normalizedPublisher: normalize(game.publisher ?? ''),
       }
     })
 

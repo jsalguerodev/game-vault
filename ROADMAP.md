@@ -58,8 +58,9 @@
 ## Milestone 4: Wishlist
 
 - [x] Add wishlist entity
-- [ ] Add wishlist repository
-- [ ] Add wishlist item
+- [x] Add wishlist repository
+- [x] Add wishlist editing when removing a platform
+- [x] Add wishlist item
 - [ ] List wishlist items
 - [ ] Update priority
 - [ ] Update prices

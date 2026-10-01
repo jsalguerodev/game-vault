@@ -1,6 +1,7 @@
 import type {
   PlatformRepository,
   GameRepository,
+  WishlistRepository,
 } from '../../../domain/repositories/index.js'
 import { InvalidPlatformIdError } from '../../../domain/errors/index.js'
 
@@ -15,6 +16,7 @@ export class RemovePlatform implements RemovePlatformUseCase {
   constructor(
     private readonly platformRepository: PlatformRepository,
     private readonly gameRepository: GameRepository,
+    private readonly wishlistRepository: WishlistRepository,
   ) {}
 
   public async execute(
@@ -37,6 +39,11 @@ export class RemovePlatform implements RemovePlatformUseCase {
       await this.platformRepository.findById(replacementPlatformId)
 
       await this.gameRepository.replacePlatformReference(
+        id,
+        replacementPlatformId,
+      )
+
+      await this.wishlistRepository.replacePlatformReference(
         id,
         replacementPlatformId,
       )

@@ -591,7 +591,7 @@ export const wishlistSeedData = [
     developer: 'Sucker Punch Productions',
     publisher: 'Sony Interactive Entertainment',
     releaseYear: 2020,
-    notes: 'Prefer the Director\'s Cut edition',
+    notes: "Prefer the Director's Cut edition",
     priority: 'high',
     targetPrice: 29.99,
     targetDiscount: 35,
