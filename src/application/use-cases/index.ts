@@ -17,3 +17,8 @@ export * from './games/update-completion-date.use-case.js'
 export * from './play-sessions/record-play-session.use-case.js'
 export * from './play-sessions/update-total-play-time.use-case.js'
 export * from './play-sessions/update-last-played-date.use-case.js'
+
+export * from './wishlist/add-wishlist-entry.use-case.js'
+export * from './wishlist/list-wishlist-entries.use-case.js'
+export * from './wishlist/update-wishlist-entry-priority.use-case.js'
+export * from './wishlist/update-whislist-entry-prices.use-case.js'

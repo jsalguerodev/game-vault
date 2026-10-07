@@ -110,14 +110,14 @@ export class MongoWishlistRepository implements WishlistRepository {
     }
 
     if (priority !== undefined) {
-      wishlistEntry.priority
+      wishlistEntry.priority = priority
     }
 
     if (targetPrice !== undefined) {
-      wishlistEntry.targetPrice
+      wishlistEntry.targetPrice = targetPrice
     }
     if (targetDiscount !== undefined) {
-      wishlistEntry.targetDiscount
+      wishlistEntry.targetDiscount = targetDiscount
     }
 
     await wishlistEntry.save()

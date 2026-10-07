@@ -49,6 +49,8 @@ export class RemovePlatform implements RemovePlatformUseCase {
       )
     } else {
       await this.gameRepository.replacePlatformReference(id, null)
+
+      await this.wishlistRepository.replacePlatformReference(id, null)
     }
 
     await this.platformRepository.delete(id)

@@ -7,12 +7,16 @@ import type {
   GameLikeSearchCriteriaData,
 } from '../types/index.js'
 export interface UpdateWishlistEntryData extends GameLikeUpdateData {
-  priority: WishlistPriority
+  priority?: WishlistPriority
   targetPrice?: number | null
   targetDiscount?: number | null
 }
 export interface WishlistRespositorySearchCriteria extends GameLikeSearchCriteriaData {
   platformIds?: string[]
+}
+export interface UpdateWishlistEntryPricesData {
+  targetPrice?: number | null
+  targetDiscount?: number | null
 }
 
 export interface WishlistRepository {

@@ -61,9 +61,9 @@
 - [x] Add wishlist repository
 - [x] Add wishlist editing when removing a platform
 - [x] Add wishlist item
-- [ ] List wishlist items
-- [ ] Update priority
-- [ ] Update prices
+- [x] List wishlist items
+- [x] Update priority
+- [x] Update prices
 - [ ] Filter items below target price
 - [ ] Remove wishlist item
 - [ ] Convert wishlist item into owned game

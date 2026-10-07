@@ -124,7 +124,7 @@ export class WishlistEntity {
       targetDiscount,
       createdAt,
       updatedAt,
-      id: _id.toStrig(),
+      id: _id.toString(),
       platformId: platformId?.toString() ?? null,
     })
   }

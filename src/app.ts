@@ -24,6 +24,11 @@ import {
   UpdateLastPlayedDate,
 } from './application/use-cases/index.js'
 import {
+  AddWishlistEntry,
+  ListWishlistEntries,
+  UpdateWishlistEntryPriority,
+} from './application/use-cases/index.js'
+import {
   PlatformModel,
   GameModel,
   PlaySessionModel,
@@ -75,6 +80,15 @@ async function main(): Promise<void> {
     )
     const updateTotalPlayTime = new UpdateTotalPlayTime(playSessionRepository)
     const updateLastPlayedDate = new UpdateLastPlayedDate(playSessionRepository)
+
+    const addWishlistEntry = new AddWishlistEntry(
+      wishlistRepository,
+      platformRepository,
+    )
+    const listWishlistEntries = new ListWishlistEntries(wishlistRepository)
+    const updateWishlistEntryPriority = new UpdateWishlistEntryPriority(
+      wishlistRepository,
+    )
 
     console.log('GameVault initialized.')
   } catch (error) {
