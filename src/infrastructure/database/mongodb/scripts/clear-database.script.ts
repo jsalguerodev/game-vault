@@ -16,12 +16,17 @@ const runClearDatabase = async (): Promise<void> => {
       serverSelectionTimeoutMs: 5000,
     })
 
-    const { deletedGames, deletedPlatforms, deletedSessions } =
-      await clearDatabaseData()
+    const {
+      deletedGames,
+      deletedPlatforms,
+      deletedSessions,
+      deletedWishlistEntries,
+    } = await clearDatabaseData()
 
     console.log(`Deleted sessions: ${deletedSessions}`)
     console.log(`Deleted games: ${deletedGames}`)
     console.log(`Deleted platforms: ${deletedPlatforms}`)
+    console.log(`Deleted wishlist entries: ${deletedWishlistEntries}`)
 
     console.log(`Database cleared successfully.`)
   } catch (error: unknown) {

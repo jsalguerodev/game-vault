@@ -24,11 +24,21 @@ export class UpdateWishlistEntryPrices implements UpdateWishlistEntryPricesUseCa
 
     const { targetDiscount, targetPrice } = data
 
-    if (targetDiscount && (targetDiscount < 0 || !Number.isInteger(targetDiscount) || targetDiscount === undefined)) {
+    if (
+      targetDiscount &&
+      (targetDiscount < 0 ||
+        !Number.isInteger(targetDiscount) ||
+        targetDiscount === undefined)
+    ) {
       throw new Error('Target discount amount is not valid')
     }
 
-    if (targetPrice && (targetPrice < 0 || !Number.isInteger(targetPrice) || targetPrice === undefined)) {
+    if (
+      targetPrice &&
+      (targetPrice < 0 ||
+        !Number.isInteger(targetPrice) ||
+        targetPrice === undefined)
+    ) {
       throw new Error('Target price amount is not valid')
     }
 
@@ -36,7 +46,7 @@ export class UpdateWishlistEntryPrices implements UpdateWishlistEntryPricesUseCa
 
     return await this.wishlistRepository.update(id, {
       targetDiscount: targetDiscount ?? null,
-      targetPrice: targetPrice ?? null
+      targetPrice: targetPrice ?? null,
     })
   }
 }

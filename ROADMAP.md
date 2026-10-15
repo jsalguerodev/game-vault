@@ -64,8 +64,8 @@
 - [x] List wishlist items
 - [x] Update priority
 - [x] Update prices
-- [ ] Filter items below target price
-- [ ] Remove wishlist item
+- [x] Filter items below target (price or discount)
+- [x] Remove wishlist item
 - [ ] Convert wishlist item into owned game
 
 ## Milestone 5: Reports

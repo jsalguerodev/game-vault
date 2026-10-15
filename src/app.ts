@@ -25,8 +25,10 @@ import {
 } from './application/use-cases/index.js'
 import {
   AddWishlistEntry,
-  ListWishlistEntries,
+  GetWishlistEntries,
   UpdateWishlistEntryPriority,
+  GetWishlistEntriesBelowTarget,
+  RemoveWishlistEntry,
 } from './application/use-cases/index.js'
 import {
   PlatformModel,
@@ -85,10 +87,14 @@ async function main(): Promise<void> {
       wishlistRepository,
       platformRepository,
     )
-    const listWishlistEntries = new ListWishlistEntries(wishlistRepository)
+    const listWishlistEntries = new GetWishlistEntries(wishlistRepository)
     const updateWishlistEntryPriority = new UpdateWishlistEntryPriority(
       wishlistRepository,
     )
+    const getWishlistEntriesBelowTarget = new GetWishlistEntriesBelowTarget(
+      wishlistRepository,
+    )
+    const removeWishlistEntry = new RemoveWishlistEntry(wishlistRepository)
 
     console.log('GameVault initialized.')
   } catch (error) {

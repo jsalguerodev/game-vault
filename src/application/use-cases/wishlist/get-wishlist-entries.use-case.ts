@@ -1,11 +1,11 @@
 import { WishlistEntity } from '../../../domain/entities/index.js'
 import type { WishlistRepository } from '../../../domain/repositories/index.js'
 
-interface ListWishlistEntriesUseCase {
+interface GetWishlistEntriesUseCase {
   execute(): Promise<WishlistEntity[]>
 }
 
-export class ListWishlistEntries implements ListWishlistEntriesUseCase {
+export class GetWishlistEntries implements GetWishlistEntriesUseCase {
   constructor(private readonly wishlistRepository: WishlistRepository) {}
 
   public async execute(): Promise<WishlistEntity[]> {

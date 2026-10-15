@@ -3,6 +3,7 @@ import type {
   WishlistRepository,
   UpdateWishlistEntryData,
   WishlistRespositorySearchCriteria,
+  WishlistFilters,
 } from '../../domain/repositories/index.js'
 import type { WishlistPersistence } from '../database/mongodb/models/index.js'
 import { WishlistEntity } from '../../domain/entities/index.js'
@@ -127,7 +128,7 @@ export class MongoWishlistRepository implements WishlistRepository {
   async delete(id: string): Promise<void> {
     validateMongoId(id)
 
-    const wishlistEntry = this.wishlistModel.findByIdAndDelete(id)
+    const wishlistEntry = await this.wishlistModel.findByIdAndDelete(id)
 
     if (!wishlistEntry) {
       throw new WishlistEntryNotFoundError(id)
@@ -207,6 +208,23 @@ export class MongoWishlistRepository implements WishlistRepository {
 
     return whislistEntries.map((entry) => WishlistEntity.fromMongoObject(entry))
   }
+
+  async filter(filters: WishlistFilters): Promise<WishlistEntity[]> {
+    const query = this.wishlistModel.find()
+
+    if (filters.maxTargetPrice !== undefined) {
+      query.where('targetPrice').lte(filters.maxTargetPrice)
+    }
+
+    if (filters.maxTargetDiscount !== undefined) {
+      query.where('targetDiscount').lte(filters.maxTargetDiscount)
+    }
+
+    const whislistEntries = await query.exec()
+
+    return whislistEntries.map((entry) => WishlistEntity.fromMongoObject(entry))
+  }
+
   async replacePlatformReference(
     currentPlatformId: string,
     newPlatformId: string | null,
