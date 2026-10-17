@@ -3,7 +3,7 @@ import type {
   UpdateWishlistEntryPricesData,
 } from '../../../domain/repositories/index.js'
 import { WishlistEntity } from '../../../domain/entities/index.js'
-import { InvalidGameIdError } from '../../../domain/errors/index.js'
+import { InvalidWishlistEntryIdError } from '../../../domain/errors/index.js'
 
 interface UpdateWishlistEntryPricesUseCase {
   execute(
@@ -19,7 +19,7 @@ export class UpdateWishlistEntryPrices implements UpdateWishlistEntryPricesUseCa
     data: UpdateWishlistEntryPricesData,
   ): Promise<WishlistEntity> {
     if (!id.trim()) {
-      throw new InvalidGameIdError(id)
+      throw new InvalidWishlistEntryIdError(id)
     }
 
     const { targetDiscount, targetPrice } = data

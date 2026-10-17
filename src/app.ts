@@ -29,6 +29,7 @@ import {
   UpdateWishlistEntryPriority,
   GetWishlistEntriesBelowTarget,
   RemoveWishlistEntry,
+  ConvertWishlistEntryToGame,
 } from './application/use-cases/index.js'
 import {
   PlatformModel,
@@ -95,6 +96,10 @@ async function main(): Promise<void> {
       wishlistRepository,
     )
     const removeWishlistEntry = new RemoveWishlistEntry(wishlistRepository)
+    const convertWishlistEntry = new ConvertWishlistEntryToGame(
+      wishlistRepository,
+      gameRepository,
+    )
 
     console.log('GameVault initialized.')
   } catch (error) {
