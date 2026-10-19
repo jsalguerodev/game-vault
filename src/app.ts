@@ -31,6 +31,7 @@ import {
   RemoveWishlistEntry,
   ConvertWishlistEntryToGame,
 } from './application/use-cases/index.js'
+import { CollectionSummaryReport } from './application/use-cases/index.js'
 import {
   PlatformModel,
   GameModel,
@@ -42,6 +43,7 @@ import {
   MongoGameRepository,
   MongoPlaySessionRepository,
   MongoWishlistRepository,
+  MongoReportRepository,
 } from './infrastructure/repositories/index.js'
 
 async function main(): Promise<void> {
@@ -49,6 +51,12 @@ async function main(): Promise<void> {
   const gameRepository = new MongoGameRepository(GameModel)
   const playSessionRepository = new MongoPlaySessionRepository(PlaySessionModel)
   const wishlistRepository = new MongoWishlistRepository(WishlistModel)
+  const reportRepository = new MongoReportRepository(
+    GameModel,
+    PlatformModel,
+    PlaySessionModel,
+    WishlistModel,
+  )
 
   try {
     await MongoDatabase.connect({
@@ -100,6 +108,8 @@ async function main(): Promise<void> {
       wishlistRepository,
       gameRepository,
     )
+
+    const collectionSummary = new CollectionSummaryReport(reportRepository)
 
     console.log('GameVault initialized.')
   } catch (error) {

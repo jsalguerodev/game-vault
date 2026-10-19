@@ -66,18 +66,50 @@
 - [x] Update prices
 - [x] Filter items below target (price or discount)
 - [x] Remove wishlist item
-- [ ] Convert wishlist item into owned game
+- [x] Convert wishlist item into owned game
 
 ## Milestone 5: Reports
 
-- [ ] Collection summary
+- [x] Collection summary
 - [ ] Platform report
-- [ ] Spending report
+- [ ] Wishlist report
 - [ ] Playtime report
 - [ ] Completion report
 - [ ] Add aggregation tests
 
-## Milestone 6: Project Quality
+## Milestone 6: CLI Implementation
+
+- [ ] Install and configure Commander.js
+- [ ] Create CLI entry point
+- [ ] Implement dependency composition for CLI commands
+- [ ] Add platform commands
+- [ ] Add game commands
+- [ ] Add play-session commands
+- [ ] Add wishlist commands
+- [ ] Add report commands
+- [ ] Implement interactive prompts where appropriate
+- [ ] Add CLI input validation
+- [ ] Add output formatters (tables, summaries, messages)
+- [ ] Add centralized CLI error handling
+- [ ] Configure executable gamevault command
+- [ ] Manually test complete CLI workflows
+
+## Milestone 7 (optional): IGDB Integration
+
+- [ ] Research IGDB API and authentication
+- [ ] Configure IGDB API credentials
+- [ ] Create IGDB API client
+- [ ] Create external game data types
+- [ ] Implement game search through IGDB
+- [ ] Retrieve game details
+- [ ] Map IGDB data to GameVault
+- [ ] Resolve platform references
+- [ ] Add game using IGDB metadata
+- [ ] Add wishlist item using IGDB metadata
+- [ ] Handle API failures and missing data
+- [ ] Add IGDB integration tests
+
+## Milestone 8: Project Quality
 
 - [ ] Unit test suite
 - [ ] Integration test suite
