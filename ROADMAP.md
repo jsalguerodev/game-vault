@@ -71,8 +71,8 @@
 ## Milestone 5: Reports
 
 - [x] Collection summary
-- [ ] Platform report
-- [ ] Wishlist report
+- [x] Platform report
+- [x] Wishlist report
 - [ ] Playtime report
 - [ ] Completion report
 - [ ] Add aggregation tests

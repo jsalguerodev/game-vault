@@ -1,4 +1,4 @@
-export interface CollectionSummary {
+export interface CollectionSummaryType {
   totalGames: number
   byStatus: {
     backlog: number
@@ -10,7 +10,7 @@ export interface CollectionSummary {
   }
 }
 
-export interface PlatformReport {
+export interface PlatformReportType {
   totalPlatforms: number
   platforms: {
     platformId: string | null
@@ -19,7 +19,7 @@ export interface PlatformReport {
   }[]
 }
 
-export interface WishlistReport {
+export interface WishlistReportType {
   totalItems: number
   byPriority: {
     low: number
@@ -32,7 +32,7 @@ export interface WishlistReport {
   itemsWithTargetDiscount: number
 }
 
-export interface PlaytimeReport {
+export interface PlaytimeReportType {
   totalPlaytimeMinutes: number
   averagePlaytimeMinutesPerGame: number
   mostPlayedGame: {
@@ -43,7 +43,7 @@ export interface PlaytimeReport {
   recentlyPlayedGames: number
 }
 
-export interface CompletionReport {
+export interface CompletionReportType {
   completedGames: number
   completedThisYear: number
   completionPercentage: number

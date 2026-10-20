@@ -31,7 +31,11 @@ import {
   RemoveWishlistEntry,
   ConvertWishlistEntryToGame,
 } from './application/use-cases/index.js'
-import { CollectionSummaryReport } from './application/use-cases/index.js'
+import {
+  CollectionSummaryReport,
+  PlatformReport,
+  WishlistReport,
+} from './application/use-cases/index.js'
 import {
   PlatformModel,
   GameModel,
@@ -110,8 +114,11 @@ async function main(): Promise<void> {
     )
 
     const collectionSummary = new CollectionSummaryReport(reportRepository)
+    const platformReport = new PlatformReport(reportRepository)
+    const wishlistReport = new WishlistReport(reportRepository)
 
     console.log('GameVault initialized.')
+
   } catch (error) {
     if (error instanceof Error)
       console.log('Error initializing GameVault:', error.message)

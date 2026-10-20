@@ -27,3 +27,7 @@ export * from './wishlist/remove-wishlist-entry.use-case.js'
 export * from './wishlist/convert-wishlist-entry-to-game.use-case.js'
 
 export * from './reports/collection-summary.use-case.js'
+export * from './reports/platform-report.use-case.js'
+export * from './reports/playtime-report.use-case.js'
+export * from './reports/wishlist-report.use-case.js'
+export * from './reports/platform-report.use-case.js'

@@ -1,15 +1,15 @@
 import type {
-  CollectionSummary,
-  PlatformReport,
-  WishlistReport,
-  PlaytimeReport,
-  CompletionReport,
+  CollectionSummaryType,
+  PlatformReportType,
+  WishlistReportType,
+  PlaytimeReportType,
+  CompletionReportType,
 } from '../types/index.js'
 
 export interface ReportRepository {
-  getCollectionSummary(): Promise<CollectionSummary>
-  getPlatformReport(): Promise<PlatformReport>
-  getWishlistReport(): Promise<WishlistReport>
-  getPlaytimeReport(): Promise<PlaytimeReport>
-  getCompletionReport(): Promise<CompletionReport>
+  getCollectionSummary(): Promise<CollectionSummaryType>
+  getPlatformReport(): Promise<PlatformReportType>
+  getWishlistReport(): Promise<WishlistReportType>
+  getPlaytimeReport(): Promise<PlaytimeReportType>
+  getCompletionReport(): Promise<CompletionReportType>
 }
