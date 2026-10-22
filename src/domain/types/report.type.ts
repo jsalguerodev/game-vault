@@ -40,7 +40,14 @@ export interface PlaytimeReportType {
     title: string
     totalPlaytimeMinutes: number
   } | null
-  recentlyPlayedGames: number
+  recentlyPlayedGames: {
+    count: number
+    games: {
+      gameId: string
+      title: string
+      totalPlaytime: number
+    }[]
+  }
 }
 
 export interface CompletionReportType {

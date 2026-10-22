@@ -197,9 +197,140 @@ export class MongoReportRepository implements ReportRepository {
     }
   }
 
-  getPlaytimeReport(): Promise<PlaytimeReportType> {
-    throw new Error('Method not implemented.')
+  public async getPlaytimeReport(): Promise<PlaytimeReportType> {
+    const recentDate = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)
+
+    const playtimeReport = await this.playSessionModel.aggregate([
+      {
+        $facet: {
+          totalPlaytimeSummary: [
+            {
+              $group: {
+                _id: null,
+                totalPlaytime: { $sum: '$durationMinutes' },
+              },
+            },
+            {
+              $project: {
+                _id: 0,
+                totalPlaytime: 1,
+              },
+            },
+          ],
+          averagePlaytimeReport: [
+            {
+              $group: {
+                _id: '$gameId',
+                totalPlaytime: { $sum: '$durationMinutes' },
+                totalSessions: { $sum: 1 },
+              },
+            },
+            {
+              $group: {
+                _id: null,
+                averagePlayTime: { $avg: '$totalPlaytime' },
+              },
+            },
+            {
+              $project: {
+                _id: 0,
+                averagePlayTime: { $round: ['$averagePlayTime', 2] },
+              },
+            },
+          ],
+          mostPlayedGameReport: [
+            {
+              $group: {
+                _id: '$gameId',
+                totalPlaytime: { $sum: '$durationMinutes' },
+              },
+            },
+            {
+              $sort: {
+                totalPlaytime: -1,
+                totalSessions: -1,
+              },
+            },
+            {
+              $limit: 1,
+            },
+            {
+              $lookup: {
+                from: 'games',
+                localField: '_id',
+                foreignField: '_id',
+                as: 'game',
+              },
+            },
+            {
+              $unwind: '$game',
+            },
+            {
+              $project: {
+                _id: 0,
+                gameId: { $toString: '$_id' },
+                title: '$game.title',
+                totalPlaytime: 1,
+              },
+            },
+          ],
+          recentlyPlayedReport: [
+            {
+              $match: {
+                playedAt: { $gte: recentDate },
+              },
+            },
+            {
+              $group: {
+                _id: '$gameId',
+                totalPlaytime: { $sum: '$durationMinutes' },
+              },
+            },
+            {
+              $lookup: {
+                from: 'games',
+                localField: '_id',
+                foreignField: '_id',
+                as: 'game',
+              },
+            },
+            {
+              $unwind: '$game',
+            },
+            {
+              $project: {
+                _id: 0,
+                gameId: { $toString: '$_id' },
+                title: '$game.title',
+                totalPlaytime: 1,
+              },
+            },
+          ],
+        },
+      },
+    ])
+
+    const totalPlaytimeSummary = playtimeReport[0]?.totalPlaytimeSummary[0]
+    const averagePlaytimeSummary = playtimeReport[0]?.averagePlaytimeReport[0]
+    const mostPlayedGame = playtimeReport[0]?.mostPlayedGameReport[0]
+    const recentlyPlayed = playtimeReport[0]?.recentlyPlayedReport
+
+    return {
+      totalPlaytimeMinutes: totalPlaytimeSummary?.totalPlaytime ?? 0,
+      averagePlaytimeMinutesPerGame:
+        averagePlaytimeSummary?.averagePlayTime ?? null,
+      mostPlayedGame: {
+        gameId: mostPlayedGame?.gameId ?? '',
+        title: mostPlayedGame?.title ?? '',
+        totalPlaytimeMinutes: mostPlayedGame?.totalPlaytime ?? null,
+      },
+      recentlyPlayedGames: {
+        count: recentlyPlayed.length,
+        games: [...recentlyPlayed],
+      },
+    }
   }
+
   getCompletionReport(): Promise<CompletionReportType> {
     throw new Error('Method not implemented.')
   }

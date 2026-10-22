@@ -35,6 +35,7 @@ import {
   CollectionSummaryReport,
   PlatformReport,
   WishlistReport,
+  PlaytimeReport,
 } from './application/use-cases/index.js'
 import {
   PlatformModel,
@@ -116,9 +117,9 @@ async function main(): Promise<void> {
     const collectionSummary = new CollectionSummaryReport(reportRepository)
     const platformReport = new PlatformReport(reportRepository)
     const wishlistReport = new WishlistReport(reportRepository)
+    const playtimeReport = new PlaytimeReport(reportRepository)
 
     console.log('GameVault initialized.')
-
   } catch (error) {
     if (error instanceof Error)
       console.log('Error initializing GameVault:', error.message)
