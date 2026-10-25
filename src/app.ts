@@ -36,6 +36,7 @@ import {
   PlatformReport,
   WishlistReport,
   PlaytimeReport,
+  CompletionReport,
 } from './application/use-cases/index.js'
 import {
   PlatformModel,
@@ -118,6 +119,7 @@ async function main(): Promise<void> {
     const platformReport = new PlatformReport(reportRepository)
     const wishlistReport = new WishlistReport(reportRepository)
     const playtimeReport = new PlaytimeReport(reportRepository)
+    const completionReport = new CompletionReport(reportRepository)
 
     console.log('GameVault initialized.')
   } catch (error) {

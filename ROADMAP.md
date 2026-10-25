@@ -73,8 +73,8 @@
 - [x] Collection summary
 - [x] Platform report
 - [x] Wishlist report
-- [ ] Playtime report
-- [ ] Completion report
+- [x] Playtime report
+- [x] Completion report
 - [ ] Add aggregation tests
 
 ## Milestone 6: CLI Implementation

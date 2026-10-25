@@ -331,7 +331,170 @@ export class MongoReportRepository implements ReportRepository {
     }
   }
 
-  getCompletionReport(): Promise<CompletionReportType> {
-    throw new Error('Method not implemented.')
+  public async getCompletionReport(): Promise<CompletionReportType> {
+    const currentYear = new Date().getUTCFullYear()
+    const completionReport = await this.gameModel.aggregate([
+      {
+        $facet: {
+          completedGames: [
+            {
+              $group: {
+                _id: null,
+                completedCount: {
+                  $sum: {
+                    $cond: [{ $eq: ['$status', 'completed'] }, 1, 0],
+                  },
+                },
+                totalCount: { $sum: 1 },
+              },
+            },
+            {
+              $project: {
+                _id: 0,
+                completedCount: 1,
+                completionPercentage: {
+                  $round: [
+                    {
+                      $multiply: [
+                        {
+                          $divide: ['$completedCount', '$totalCount'],
+                        },
+                        100,
+                      ],
+                    },
+                    2,
+                  ],
+                },
+              },
+            },
+          ],
+          completedThisYear: [
+            {
+              $match: {
+                completedAt: {
+                  $gte: new Date(Date.UTC(currentYear, 0, 1)),
+                  $lt: new Date(Date.UTC(currentYear + 1, 0, 1)),
+                },
+              },
+            },
+            {
+              $group: {
+                _id: null,
+                thisYear: { $sum: 1 },
+              },
+            },
+            {
+              $project: {
+                _id: 0,
+                thisYear: '$thisYear',
+              },
+            },
+          ],
+          completionTime: [
+            {
+              $match: {
+                status: {
+                  $eq: 'completed',
+                },
+              },
+            },
+            {
+              $lookup: {
+                from: 'playsessions',
+                localField: '_id',
+                foreignField: 'gameId',
+                as: 'playsessions',
+              },
+            },
+            {
+              $project: {
+                totalPlaytime: {
+                  $sum: '$playsessions.durationMinutes',
+                },
+              },
+            },
+            {
+              $match: {
+                totalPlaytime: {
+                  $gt: 0,
+                },
+              },
+            },
+            {
+              $group: {
+                _id: null,
+                averageCompletionPlaytime: {
+                  $avg: '$totalPlaytime',
+                },
+              },
+            },
+            {
+              $project: {
+                _id: 0,
+                averageCompletionPlaytime: {
+                  $round: ['$averageCompletionPlaytime', 2],
+                },
+              },
+            },
+          ],
+          mostCompletedGenre: [
+            {
+              $match: {
+                status: {
+                  $eq: 'completed',
+                },
+              },
+            },
+            {
+              $unwind: '$genres',
+            },
+            {
+              $group: {
+                _id: '$genres',
+                completedGames: { $sum: 1 },
+              },
+            },
+            {
+              $sort: {
+                completedGames: -1,
+              },
+            },
+            {
+              $limit: 1,
+            },
+            {
+              $project: {
+                _id: 0,
+                genre: '$_id',
+                completedGames: 1,
+              },
+            },
+          ],
+        },
+      },
+    ])
+
+    const completedCount =
+      completionReport[0]?.completedGames[0]?.completedCount ?? 0
+    const completionPercentage =
+      completionReport[0]?.completedGames[0]?.completionPercentage ?? 0
+    const completedThisYear =
+      completionReport[0]?.completedThisYear[0]?.thisYear ?? 0
+    const averageCompletionPlaytime =
+      completionReport[0]?.completionTime[0]?.averageCompletionPlaytime ?? 0
+    const mostCompletedGenre = completionReport[0]?.mostCompletedGenre?.[0]
+
+    return {
+      completedGames: completedCount,
+      completedThisYear: completedThisYear,
+      completionPercentage: completionPercentage,
+      averageCompletionPlaytimeMinutes: averageCompletionPlaytime,
+      mostCompletedGenre: mostCompletedGenre
+        ? {
+            genre: mostCompletedGenre.genre,
+            completedGames: mostCompletedGenre.completedGames,
+          }
+        : null,
+    }
   }
 }
