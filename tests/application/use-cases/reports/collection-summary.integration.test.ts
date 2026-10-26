@@ -1,6 +1,4 @@
-import { beforeAll, afterAll, beforeEach, describe, expect, test } from 'vitest'
-import mongoose from 'mongoose'
-import { GameModel, PlatformModel, PlaySessionModel, WishlistModel } from '../../../../src/infrastructure/database/mongodb/models/index.js'
+import { beforeAll, afterAll, beforeEach, describe, test } from 'vitest'
 
 import {
   connectTestDatabase,
@@ -21,7 +19,11 @@ describe('Collection Summary', () => {
     await clearTestDatabase()
   })
 
-  test('Should return true', () => {
-    expect(true).toBe(true)
-  })
+  test.todo('Should return zero totals when the collection is empty')
+  test.todo('Should return the total number of games in the collection')
+  test.todo('Should count games grouped by each status')
+  test.todo('Should return zero for statuses without games')
+  test.todo('Should exclude wishlist items from the collection totals')
+  test.todo('Should reflect game status changes in the status counts')
+  test.todo('Should reflect deleted games in the collection totals')
 })
