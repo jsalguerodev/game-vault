@@ -4,4 +4,5 @@
 /mongo-data/
 
 .env
+.env.test
 time-tracker.json
