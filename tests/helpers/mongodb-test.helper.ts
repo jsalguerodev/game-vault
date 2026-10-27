@@ -1,7 +1,14 @@
 import { MongoDatabase } from '../../src/infrastructure/database/mongodb/connection.js'
 import { envs } from '../../src/config/plugins/index.js'
-import { GameModel, PlatformModel, PlaySessionModel, WishlistModel } from '../../src/infrastructure/database/mongodb/models/index.js'
+import {
+  GameModel,
+  PlatformModel,
+  PlaySessionModel,
+  WishlistModel,
+} from '../../src/infrastructure/database/mongodb/models/index.js'
 import mongoose from 'mongoose'
+
+import { normalize } from '../../src/config/plugins/index.js'
 
 export const connectTestDatabase = async (): Promise<void> => {
   if (envs.MONGO_DB_NAME !== 'gamevault_test') {
@@ -30,4 +37,85 @@ export const clearTestDatabase = async (): Promise<void> => {
   await PlatformModel.deleteMany({})
   await PlaySessionModel.deleteMany({})
   await WishlistModel.deleteMany({})
+}
+
+export const addDefaultGameData = async (): Promise<void> => {
+  await GameModel.insertMany([
+    {
+      title: 'Game 1',
+      normalizedTitle: normalize('Game 1'),
+      status: 'playing',
+      format: 'digital',
+    },
+    {
+      title: 'Game 2',
+      normalizedTitle: normalize('Game 2'),
+      status: 'backlog',
+      format: 'physical',
+    },
+    {
+      title: 'Game 3',
+      normalizedTitle: normalize('Game 3'),
+      status: 'cataloged',
+      format: 'physical',
+    },
+  ])
+}
+
+export const addDefaultPlatformData = async (): Promise<void> => {
+  await PlatformModel.insertMany([
+    {
+      name: 'Platform 1',
+      normalizedName: normalize('Platform 1'),
+    },
+    {
+      name: 'Platform 2',
+      normalizedName: normalize('Platform 2'),
+    },
+    {
+      name: 'Platform 3',
+      normalizedName: normalize('Platform 3'),
+    },
+  ])
+}
+
+export const addDefaultPlatformsGamesData = async (): Promise<void> => {
+  const platforms = await PlatformModel.insertMany([
+    {
+      name: 'Platform 1',
+      normalizedName: normalize('Platform 1'),
+    },
+    {
+      name: 'Platform 2',
+      normalizedName: normalize('Platform 2'),
+    },
+    {
+      name: 'Platform 3',
+      normalizedName: normalize('Platform 3'),
+    },
+  ])
+
+  await GameModel.insertMany([
+    {
+      title: 'Game 1',
+      normalizedTitle: normalize('Game 1'),
+      status: 'playing',
+      format: 'digital',
+      platformId: platforms[0]._id,
+    },
+    {
+      title: 'Game 2',
+      normalizedTitle: normalize('Game 2'),
+      status: 'backlog',
+      format: 'physical',
+      platformId: platforms[0]._id,
+    },
+    {
+      title: 'Game 3',
+      normalizedTitle: normalize('Game 3'),
+      status: 'cataloged',
+      format: 'physical',
+      platformId: platforms[2]._id,
+    },
+  ])
 }

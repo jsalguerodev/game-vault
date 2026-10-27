@@ -21,17 +21,31 @@ describe('Completion Report', () => {
 
   test.todo('Should return an empty completion report when no games exist')
   test.todo('Should count games with completed status')
-  test.todo('Should calculate completion percentage using all games in the collection')
+  test.todo(
+    'Should calculate completion percentage using all games in the collection',
+  )
   test.todo('Should round completion percentage to two decimal places')
   test.todo('Should count games completed during the current UTC year')
   test.todo('Should include completions at the start of the current UTC year')
-  test.todo('Should exclude completions before the current UTC year and at the start of the next UTC year')
-  test.todo('Should calculate average completion playtime from total sessions per completed game')
-  test.todo('Should exclude games without completed status from average completion playtime')
-  test.todo('Should exclude completed games without positive playtime from average completion playtime')
+  test.todo(
+    'Should exclude completions before the current UTC year and at the start of the next UTC year',
+  )
+  test.todo(
+    'Should calculate average completion playtime from total sessions per completed game',
+  )
+  test.todo(
+    'Should exclude games without completed status from average completion playtime',
+  )
+  test.todo(
+    'Should exclude completed games without positive playtime from average completion playtime',
+  )
   test.todo('Should round average completion playtime to two decimal places')
-  test.todo('Should return the most completed genre and its completed game count')
+  test.todo(
+    'Should return the most completed genre and its completed game count',
+  )
   test.todo('Should count each genre of completed games with multiple genres')
   test.todo('Should exclude games without completed status from genre counts')
-  test.todo('Should return null for the most completed genre when no completed games have genres')
+  test.todo(
+    'Should return null for the most completed genre when no completed games have genres',
+  )
 })
