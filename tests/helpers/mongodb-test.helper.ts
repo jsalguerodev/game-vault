@@ -119,3 +119,75 @@ export const addDefaultPlatformsGamesData = async (): Promise<void> => {
     },
   ])
 }
+
+export const addDefaultPlaytimeSessions = async (): Promise<void> => {
+  const games = await GameModel.insertMany([
+    {
+      title: 'Game 1',
+      normalizedTitle: normalize('Game 1'),
+      status: 'playing',
+      format: 'digital',
+    },
+    {
+      title: 'Game 2',
+      normalizedTitle: normalize('Game 2'),
+      status: 'backlog',
+      format: 'physical',
+    },
+    {
+      title: 'Game 3',
+      normalizedTitle: normalize('Game 3'),
+      status: 'cataloged',
+      format: 'physical',
+    },
+    {
+      title: 'Game 4',
+      normalizedTitle: normalize('Game 4'),
+      status: 'cataloged',
+      format: 'physical',
+    },
+  ])
+
+  const sessions = await PlaySessionModel.insertMany([
+    {
+      gameId: games[0]._id,
+      durationMinutes: 100,
+      playedAt: new Date('2023-10-28'),
+    },
+    {
+      gameId: games[1]._id,
+      durationMinutes: 35,
+      playedAt: new Date('2024-10-28'),
+    },
+    {
+      gameId: games[1]._id,
+      durationMinutes: 22,
+      playedAt: new Date('2024-10-29'),
+    },
+    {
+      gameId: games[2]._id,
+      durationMinutes: 100,
+      playedAt: new Date(),
+    },
+    {
+      gameId: games[2]._id,
+      durationMinutes: 20,
+      playedAt: new Date(),
+    },
+    {
+      gameId: games[2]._id,
+      durationMinutes: 7,
+      playedAt: new Date(),
+    },
+    {
+      gameId: games[0]._id,
+      durationMinutes: 11,
+      playedAt: new Date('2026-10-28'),
+    },
+    {
+      gameId: games[0]._id,
+      durationMinutes: 1,
+      playedAt: new Date(Date.now() - 31 * 24 * 60 * 60 * 1000),
+    },
+  ])
+}

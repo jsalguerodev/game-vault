@@ -298,6 +298,11 @@ export class MongoReportRepository implements ReportRepository {
               $unwind: '$game',
             },
             {
+              $sort: {
+                totalPlaytime: -1,
+              },
+            },
+            {
               $project: {
                 _id: 0,
                 gameId: { $toString: '$_id' },
