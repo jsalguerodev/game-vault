@@ -46,18 +46,21 @@ export const addDefaultGameData = async (): Promise<void> => {
       normalizedTitle: normalize('Game 1'),
       status: 'playing',
       format: 'digital',
+      genres: ['RPG'],
     },
     {
       title: 'Game 2',
       normalizedTitle: normalize('Game 2'),
       status: 'backlog',
       format: 'physical',
+      genres: ['RPG', 'Adventure', 'Tactical'],
     },
     {
       title: 'Game 3',
       normalizedTitle: normalize('Game 3'),
       status: 'cataloged',
       format: 'physical',
+      genres: ['Driving', 'Simulation', 'Sports'],
     },
   ])
 }
@@ -190,4 +193,110 @@ export const addDefaultPlaytimeSessions = async (): Promise<void> => {
       playedAt: new Date(Date.now() - 31 * 24 * 60 * 60 * 1000),
     },
   ])
+}
+
+export const addDefaultWishlistEntriesData = async (): Promise<void> => {
+  await WishlistModel.insertMany([
+    {
+      title: 'Game 1',
+      normalizedTitle: normalize('Game 1'),
+      targetDiscount: 80,
+      priority: 'high',
+    },
+    {
+      title: 'Game 2',
+      normalizedTitle: normalize('Game 2'),
+      targetPrice: 25,
+    },
+    {
+      title: 'Game 3',
+      normalizedTitle: normalize('Game 3'),
+      format: 'physical',
+      targetPrice: 30,
+    },
+    {
+      title: 'Game 4',
+      normalizedTitle: normalize('Game 4'),
+      format: 'digital',
+      targetDiscount: 15,
+      priority: 'low',
+    },
+  ])
+}
+
+export const addDefaultCompletionData = async (): Promise<void> => {
+  await addDefaultGameData()
+
+  await GameModel.insertMany([
+    {
+      title: 'Game 10',
+      normalizedTitle: normalize('Game 10'),
+      status: 'completed',
+      completedAt: new Date('12-12-2024'),
+      format: 'digital',
+      genres: ['RPG'],
+    },
+    {
+      title: 'Game 11',
+      normalizedTitle: normalize('Game 11'),
+      status: 'completed',
+      completedAt: new Date(),
+      format: 'physical',
+      genres: ['RPG', 'Adventure', 'Tactical'],
+    },
+    {
+      title: 'Game 12',
+      normalizedTitle: normalize('Game 12'),
+      format: 'physical',
+      genres: ['Driving', 'Simulation', 'Sports'],
+    },
+    {
+      title: 'Game 13',
+      normalizedTitle: normalize('Game 13'),
+      status: 'completed',
+      completedAt: new Date(new Date().getFullYear(), 0, 1),
+      format: 'digital',
+      genres: ['Driving', 'Simulation', 'Sports'],
+    },
+  ])
+}
+
+export const addDefaultCompletionDataWithSessions = async (): Promise<void> => {
+  await addDefaultCompletionData()
+  await addDefaultPlaytimeSessions()
+
+  const games = await GameModel.find()
+
+  await PlaySessionModel.create(
+    {
+      gameId: games[0]._id,
+      durationMinutes: 60,
+      playedAt: new Date('2023-10-28'),
+    },
+    {
+      gameId: games[0]._id,
+      durationMinutes: 70,
+      playedAt: new Date('2023-10-28'),
+    },
+    {
+      gameId: games[3]._id,
+      durationMinutes: 35,
+      playedAt: new Date('2023-10-28'),
+    },
+    {
+      gameId: games[4]._id,
+      durationMinutes: 100,
+      playedAt: new Date('2023-10-28'),
+    },
+    {
+      gameId: games[4]._id,
+      durationMinutes: 25,
+      playedAt: new Date('2023-10-29'),
+    },
+    {
+      gameId: games[4]._id,
+      durationMinutes: 127,
+      playedAt: new Date('2023-10-30'),
+    },
+  )
 }
